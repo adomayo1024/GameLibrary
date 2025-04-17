@@ -16,5 +16,5 @@ public:
 
 private:
     std::map<sf::Event::EventType,
-    std::vector<std::function<void(sf::Event)>>> &listnerMap;
+    std::vector<std::function<void(sf::Event)>>> listnerMap;
 };

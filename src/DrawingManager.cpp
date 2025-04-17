@@ -1,19 +1,19 @@
 #include "../include/DrawingManager.h"
 
 
-DrawingManager::DrawingManager(sf::RenderWindow &window, std::vector<std::shared_ptr<Drawable>>& drawings)
-    : window(window), drawings(drawings) {
+DrawingManager::DrawingManager(sf::RenderWindow &window)
+    : window(window), drawings(std::vector<std::shared_ptr<Drawable>>{}) {
 }
 
 
 void DrawingManager::draw() {
-    for (std::shared_ptr<Drawable> drawable : drawings) {
-        window.draw(drawable->draw());
+    for (const std::shared_ptr<Drawable> & drawing : drawings) {
+        drawing->draw();
     }
 
 }
 
-void DrawingManager::setDrawings(const std::shared_ptr<Drawable> drawable) {
+void DrawingManager::setDrawings(const std::shared_ptr<Drawable>& drawable) {
     drawings.push_back(drawable);
 }
 

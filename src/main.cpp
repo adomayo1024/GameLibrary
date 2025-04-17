@@ -2,6 +2,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include <filesystem>
+#include <UpdateManager.h>
 
 #include "DrawingManager.h"
 #include "../include/InputManager.h"
@@ -14,14 +15,12 @@ const unsigned int SCREEN_WIDTH = CELL_SIZE * ROWS;
 const unsigned int SCREEN_HEIGHT =  CELL_SIZE * COLS;
 
 
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Snake");
+int main() {
+    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Moon");
     window.setFramerateLimit(60);
 
     std::map<sf::Event::EventType,
     std::vector<std::function<void(sf::Event)>>> map{};
-    InputManager input_manager(map);
 
     sf::Texture texture{};
     texture.loadFromFile("res/haesslichkeit.png");
@@ -29,13 +28,20 @@ int main()
     sprite.setTexture(texture);
     sprite.scale(8.0f, 8.0f);
 
-    Test test("H", sprite);
+    std::shared_ptr<Test> test_prt = std::make_shared<Test>("hallo", sprite);
     std::vector<std::shared_ptr<Drawable>> drawings{};
-    std::shared_ptr<Test> test_ptr = std::make_shared<Test>(test);
+    std::shared_ptr<Drawable> test_draw_prt = test_prt;
+    std::shared_ptr<Updatable> test_update_ptr = std::make_shared<Updatable>(test);
 
-    DrawingManager drawing_manager(window, drawings);
-    drawing_manager.setDrawings(test_ptr);
+    DrawingManager drawing_manager(window);
+    drawing_manager.setDrawings(test_draw_prt);
+
+    InputManager input_manager{map};
     input_manager.setListner(sf::Event::KeyPressed, test);
+
+    UpdateManager update_manager{};
+    update_manager.setUpdateObj(test_update_ptr);
+
 
     while (window.isOpen()) {
         sf::Event event;

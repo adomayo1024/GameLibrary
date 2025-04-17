@@ -6,13 +6,14 @@
 
 InputManager::InputManager(std::map<sf::Event::EventType,
     std::vector<std::function<void(sf::Event)>>>& listnerMap)
-        : listnerMap(listnerMap) {;
+: listnerMap(std::map<sf::Event::EventType,
+std::vector<std::function<void(sf::Event)>>>{}) {;
 }
 
 void InputManager::manage(const sf::Event event) {
     if (listnerMap.contains(event.type)) {
-        for (std::function<void(sf::Event)> const& n : listnerMap.at(event.type)) {
-            n(event);
+        for (const std::function<void(sf::Event)> & listner : listnerMap.at(event.type)) {
+            listner(event);
         }
     }
 }

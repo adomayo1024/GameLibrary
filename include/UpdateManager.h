@@ -1,16 +1,19 @@
-//
-// Created by ado_mayo1024 on 15.04.25.
-//
+#pragma once
 
-#ifndef UPDATEMANAGER_H
-#define UPDATEMANAGER_H
+#include <memory>
+#include <vector>
 
-
+#include "Updatable.h"
 
 class UpdateManager {
 
+public:
+    UpdateManager();
+
+    void update();
+
+    void setUpdateObj(std::shared_ptr<Updatable>&);
+
+private:
+    std::vector<std::shared_ptr<Updatable>> updatables;
 };
-
-
-
-#endif //UPDATEMANAGER_H

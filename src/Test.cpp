@@ -16,6 +16,11 @@ Test::Test(std::string text, sf::Sprite& sprite)
     : text(text), sprite(sprite) {
 }
 
+void Test::update() {
+    sprite.setPosition(sprite.getPosition().x + 0.1, sprite.getPosition().y + 0.1);
+}
+
+
 sf::Drawable& Test::draw() {
     return sprite;
 }
