@@ -4,7 +4,7 @@
 #include <filesystem>
 
 #include "DrawingManager.h"
-#include "InputManager.h"
+#include "../include/InputManager.h"
 #include "Test.h"
 
 const unsigned int CELL_SIZE = 128;

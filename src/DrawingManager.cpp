@@ -1,4 +1,4 @@
-#include "DrawingManager.h"
+#include "../include/DrawingManager.h"
 
 
 DrawingManager::DrawingManager(sf::RenderWindow &window, std::vector<std::shared_ptr<Drawable>>& drawings)

@@ -2,7 +2,7 @@
 // Created by ado_mayo1024 on 15.04.25.
 //
 
-#include "Test.h"
+#include "../include/Test.h"
 #include <iostream>
 #include <utility>
 
