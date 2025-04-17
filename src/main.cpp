@@ -24,7 +24,7 @@ int main()
     InputManager input_manager(map);
 
     sf::Texture texture{};
-    texture.loadFromFile("res/hässlichkeit.png");
+    texture.loadFromFile("res/haesslichkeit.png");
     sf::Sprite sprite{};
     sprite.setTexture(texture);
     sprite.scale(8.0f, 8.0f);
