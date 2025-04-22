@@ -4,6 +4,5 @@ class Updatable {
 public:
     Updatable() = default;
     virtual ~Updatable() = default;
-    virtual void update();
+    virtual void update() = 0;
 };
-

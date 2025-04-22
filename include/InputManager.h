@@ -8,13 +8,12 @@
 
 class InputManager {
 public:
-    explicit InputManager(std::map<sf::Event::EventType,
-        std::vector<std::function<void(sf::Event)>>>&);
-    void manage(sf::Event event);
+    explicit InputManager();
+    void manage(sf::Event &);
     void setListner(const sf::Event::EventType& event,
-        const std::function<void(sf::Event)>&);
+        const std::function<void(sf::Event&)>&);
 
 private:
     std::map<sf::Event::EventType,
-    std::vector<std::function<void(sf::Event)>>> listnerMap;
+    std::vector<std::function<void(sf::Event&)>>> listnerMap;
 };

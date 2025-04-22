@@ -2,11 +2,11 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include <filesystem>
-#include <UpdateManager.h>
 
 #include "DrawingManager.h"
-#include "../include/InputManager.h"
+#include "InputManager.h"
 #include "Test.h"
+#include "UpdateManager.h"
 
 const unsigned int CELL_SIZE = 128;
 const unsigned int ROWS = 10;
@@ -28,19 +28,26 @@ int main() {
     sprite.setTexture(texture);
     sprite.scale(8.0f, 8.0f);
 
-    std::shared_ptr<Test> test_prt = std::make_shared<Test>("hallo", sprite);
-    std::vector<std::shared_ptr<Drawable>> drawings{};
-    std::shared_ptr<Drawable> test_draw_prt = test_prt;
-    std::shared_ptr<Updatable> test_update_ptr = std::make_shared<Updatable>(test);
+    sf::Sprite sprite2{};
+    sprite2.setTexture(texture);
+
+    Test test{"Hello", sprite, sf::Event::KeyPressed};
+    Test test2{"bye", sprite2, sf::Event::KeyPressed};
+    Test test3(test);
+
+    sf::Vector2<int> 
+
+    test3.atInput(sf::Event{});
+    test3.setText("hi");
+    test2.atInput(sf::Event{});
 
     DrawingManager drawing_manager(window);
-    drawing_manager.setDrawings(test_draw_prt);
 
-    InputManager input_manager{map};
-    input_manager.setListner(sf::Event::KeyPressed, test);
+    InputManager input_manager{};
+    input_manager.setListner(test.getEventType(),[&](sf::Event& event) {test.atInput(event);});
+    input_manager.setListner(test2.getEventType(), [&](sf::Event& event) {test2.atInput(event);});
 
     UpdateManager update_manager{};
-    update_manager.setUpdateObj(test_update_ptr);
 
 
     while (window.isOpen()) {

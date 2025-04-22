@@ -6,18 +6,32 @@
 #include <iostream>
 #include <utility>
 
-
-void Test::operator()(sf::Event event) {
-    bool gg = (7 == event.key.code);
-    std::cout << gg << std::endl;
+Test::Test(std::string text,
+            sf::Sprite& sprite,
+            sf::Event::EventType eventType)
+    : text(text), sprite(sprite), eventType(eventType) {
 }
 
-Test::Test(std::string text, sf::Sprite& sprite)
-    : text(text), sprite(sprite) {
+Test::Test(const Test& test): text(test.text), sprite(test.sprite), eventType(test.eventType) {
+
 }
+
+void Test::setEventType(sf::Event::EventType newEventType) {
+    eventType = newEventType;
+}
+
+void Test::setText(std::string newText) {
+    text = newText;
+}
+
+sf::Sprite& Test::getSprite() const {
+    return sprite;
+}
+
+
 
 void Test::update() {
-    sprite.setPosition(sprite.getPosition().x + 0.1, sprite.getPosition().y + 0.1);
+    sprite.setPosition(sprite.getPosition().x + 0.1f, sprite.getPosition().y + 0.1f);
 }
 
 
@@ -25,3 +39,10 @@ sf::Drawable& Test::draw() {
     return sprite;
 }
 
+sf::Event::EventType Test::getEventType() {
+    return eventType;
+}
+
+void Test::atInput(const sf::Event&) {
+    std::cout << text << std::endl;
+}

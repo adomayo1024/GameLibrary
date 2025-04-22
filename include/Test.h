@@ -12,11 +12,17 @@
 class Test : Drawable
              , Updatable{
 public:
-    void operator()(sf::Event);
-    explicit Test(std::string, sf::Sprite&);
+    explicit Test(std::string, sf::Sprite&, sf::Event::EventType);
+    Test(const Test&);
+    void setEventType(sf::Event::EventType);
+    void setText(std::string);
+    sf::Sprite& getSprite() const;
     sf::Drawable& draw() override;
     void update() override;
+    sf::Event::EventType getEventType();
+    void atInput(const sf::Event&);
 private:
     std::string text;
     sf::Sprite& sprite;
+    sf::Event::EventType eventType;
 };

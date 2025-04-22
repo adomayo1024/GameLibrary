@@ -4,15 +4,14 @@
 
 
 
-InputManager::InputManager(std::map<sf::Event::EventType,
-    std::vector<std::function<void(sf::Event)>>>& listnerMap)
+InputManager::InputManager()
 : listnerMap(std::map<sf::Event::EventType,
-std::vector<std::function<void(sf::Event)>>>{}) {;
+std::vector<std::function<void(sf::Event&)>>>{}) {;
 }
 
-void InputManager::manage(const sf::Event event) {
+void InputManager::manage(sf::Event &event) {
     if (listnerMap.contains(event.type)) {
-        for (const std::function<void(sf::Event)> & listner : listnerMap.at(event.type)) {
+        for (const auto& listner : listnerMap.at(event.type)) {
             listner(event);
         }
     }
@@ -24,7 +23,7 @@ void InputManager::manage(const sf::Event event) {
  * @param function die Funktion die aufgerufen werden soll, wenn das Event passiert ist
  */
 void InputManager::setListner(const sf::Event::EventType& event,
-                              const std::function<void(sf::Event)>& function) {
+                              const std::function<void(sf::Event&)>& function) {
     listnerMap[event].push_back(function);
 }
 

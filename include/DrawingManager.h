@@ -6,7 +6,7 @@
 class DrawingManager {
 
 public:
-    explicit DrawingManager(sf::RenderWindow&);
+    DrawingManager(sf::RenderWindow&);
     void draw();
     void setDrawings(const std::shared_ptr<Drawable>&);
 private:
