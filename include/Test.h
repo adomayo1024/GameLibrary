@@ -9,8 +9,8 @@
 #include "Updatable.h"
 
 
-class Test : Drawable
-             , Updatable{
+class Test : public Drawable,
+             public Updatable{
 public:
     explicit Test(std::string, sf::Sprite&, sf::Event::EventType);
     Test(const Test&);

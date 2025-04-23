@@ -1,14 +1,14 @@
 #include "../include/DrawingManager.h"
 
 
-DrawingManager::DrawingManager(sf::RenderWindow &window)
+DrawingManager::DrawingManager(const sf::RenderWindow &window)
     : window(window), drawings(std::vector<std::shared_ptr<Drawable>>{}) {
 }
 
 
 void DrawingManager::draw() {
     for (const std::shared_ptr<Drawable> & drawing : drawings) {
-        drawing->draw();
+        window.draw(drawing->draw());
     }
 
 }
