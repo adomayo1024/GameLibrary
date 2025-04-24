@@ -9,11 +9,11 @@
 #include "Test.h"
 #include "UpdateManager.h"
 
-const unsigned int CELL_SIZE = 128;
-const unsigned int ROWS = 10;
-const unsigned int COLS = 10;
-const unsigned int SCREEN_WIDTH = CELL_SIZE * ROWS;
-const unsigned int SCREEN_HEIGHT =  CELL_SIZE * COLS;
+constexpr  unsigned int CELL_SIZE = 128;
+constexpr unsigned int ROWS = 10;
+constexpr unsigned int COLS = 10;
+constexpr unsigned int SCREEN_WIDTH = CELL_SIZE * ROWS;
+constexpr unsigned int SCREEN_HEIGHT =  CELL_SIZE * COLS;
 
 
 int main() {
@@ -40,28 +40,21 @@ int main() {
     test3.setText("hi");
     test2.atInput(sf::Event{});
 
-    DrawingManager drawing_manager(game.getWindow());
-    std::shared_ptr<Drawable> test_prt = std::make_shared<Test>(test);
-    drawing_manager.setDrawings(test_prt);
-
     InputManager input_manager{};
-    input_manager.setListner(test.getEventType(),[&](sf::Event& event) {test.atInput(event);});
-    input_manager.setListner(test2.getEventType(), [&](sf::Event& event) {test2.atInput(event);});
+    input_manager.setListner(test.getEventType(), sf::Keyboard::Key::B, std::bind(&Test::atInput, &test, std::placeholders::_1));
+    input_manager.setListner(test2.getEventType(), sf::Keyboard::Key::H, std::bind(&Test::atInput, &test2, std::placeholders::_1));
 
-    UpdateManager update_manager{};
 
 
     while (game.isRunning()) {
         sf::Event event;
-        while (game.getWindow().pollEvent(event)) {
+        while (game.getLastEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 game.endGame();
             }
             input_manager.manage(event);
         }
 
-        window.clear();
-        drawing_manager.draw();
-        window.display();
+        game.draw();
     }
 }
