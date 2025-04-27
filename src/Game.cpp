@@ -1,5 +1,9 @@
 #include "Game.h"
 
+#include <SFML/Graphics/Texture.hpp>
+
+#include "Test.h"
+
 
 Game::Game(int width, int heigth, const std::string& title)  :
 window(sf::RenderWindow{sf::VideoMode(width, heigth), title}),
@@ -32,6 +36,25 @@ void Game::draw() {
     window.display();
 }
 
+void Game::handleInput(sf::Event& event) {
+    input_manager.manage(event);
+}
+
 GameState Game::getCurrentState() const {
     return currentState;
+}
+
+void Game::init() {
+    sf::Texture texture{};
+    texture.loadFromFile("res/haesslichkeit.png");
+    sf::Sprite sprite{};
+    sprite.setTexture(texture);
+    sprite.scale(8.0f, 8.0f);
+
+    sf::Sprite sprite2{};
+    sprite2.setTexture(texture);
+
+    Test test{"Hello", sprite, sf::Event::KeyPressed};
+
+    input_manager.setListner(test.getEventType(), std::bind(&Test::atInput, &test, std::placeholders::_1));
 }

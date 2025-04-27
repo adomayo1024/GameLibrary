@@ -14,12 +14,13 @@ class Test : public Drawable,
 public:
     explicit Test(std::string, sf::Sprite&, sf::Event::EventType);
     Test(const Test&);
+    ~Test();
     void setEventType(sf::Event::EventType);
     void setText(std::string);
     sf::Sprite& getSprite() const;
     sf::Drawable& draw() override;
     void update() override;
-    sf::Event::EventType getEventType();
+    sf::Event::EventType getEventType() const;
     void atInput(const sf::Event&);
 private:
     std::string text;

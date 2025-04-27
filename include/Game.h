@@ -17,6 +17,8 @@ public:
     bool isRunning() const;
     bool getLastEvent(sf::Event& event);
     void draw();
+    void handleInput(sf::Event& event);
+    void init();
     GameState getCurrentState() const;
 private:
     sf::RenderWindow window;

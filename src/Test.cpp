@@ -4,17 +4,20 @@
 
 #include "../include/Test.h"
 #include <iostream>
-#include <utility>
 
-Test::Test(std::string text,
+Test::Test(const std::string text,
             sf::Sprite& sprite,
             sf::Event::EventType eventType)
     : text(text), sprite(sprite), eventType(eventType) {
 }
 
 Test::Test(const Test& test): text(test.text), sprite(test.sprite), eventType(test.eventType) {
-
 }
+
+Test::~Test() {
+    std::cout << text << std::endl;
+}
+
 
 void Test::setEventType(sf::Event::EventType newEventType) {
     eventType = newEventType;
@@ -39,7 +42,7 @@ sf::Drawable& Test::draw() {
     return sprite;
 }
 
-sf::Event::EventType Test::getEventType() {
+ sf::Event::EventType Test::getEventType() const {
     return eventType;
 }
 
