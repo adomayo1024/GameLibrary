@@ -47,15 +47,14 @@ GameState Game::getCurrentState() const {
 }
 
 void Game::init() {
-    sf::Texture texture{};
-    texture.loadFromFile("res/haesslichkeit.png");
-    sf::Sprite sprite{};
-    sprite.setTexture(texture);
-    sprite.scale(8.0f, 8.0f);
-    sprite.setPosition(sf::Vector2{212.0f, 0.0f});
 
-    std::shared_ptr<Element> prt = std::make_shared<Test>(Test{"Hello", sprite, sf::Event::KeyPressed});
+
+    std::shared_ptr<Element> prt = std::make_shared<Test>(Test{"res/haesslichkeit.png", sf::Event::KeyPressed});
     std::shared_ptr<Drawable> prt_drawable = prt;
+    std::shared_ptr<Element> test_element = std::make_shared<Test>("res/haesslichkeit.png", sf::Event::KeyPressed);
+    std::shared_ptr<Drawable> test_drawable = test_element;
     gameElements.push_back(prt);
+    gameElements.push_back(test_element);
     drawing_manager.setDrawings(prt_drawable);
+    drawing_manager.setDrawings(test_drawable);
 }

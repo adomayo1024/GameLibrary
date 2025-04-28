@@ -5,10 +5,9 @@
 #include "../include/Test.h"
 #include <iostream>
 
-Test::Test(const std::string text,
-            sf::Sprite sprite,
+Test::Test(const std::string textPath,
             sf::Event::EventType eventType)
-    : Element(sprite), text(text), eventType(eventType) {
+    : Element(textPath), eventType(eventType) {
 }
 
 
@@ -20,9 +19,6 @@ void Test::setEventType(sf::Event::EventType newEventType) {
     eventType = newEventType;
 }
 
-void Test::setText(std::string newText) {
-    text = newText;
-}
 
 void Test::update() {
     sprite.setPosition(sprite.getPosition().x + 0.1f, sprite.getPosition().y + 0.1f);
@@ -33,5 +29,5 @@ void Test::update() {
 }
 
 void Test::atInput(const sf::Event&) {
-    std::cout << text << std::endl;
+    std::cout << texturePath << std::endl;
 }

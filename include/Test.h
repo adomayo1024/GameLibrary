@@ -9,7 +9,7 @@
 
 class Test : public Element{
 public:
-    explicit Test(std::string, sf::Sprite, sf::Event::EventType);
+    explicit Test(std::string, sf::Event::EventType);
     ~Test();
     void setEventType(sf::Event::EventType);
     void setText(std::string);
@@ -17,6 +17,5 @@ public:
     sf::Event::EventType getEventType() const;
     void atInput(const sf::Event&);
 private:
-    std::string text;
     sf::Event::EventType eventType;
 };
