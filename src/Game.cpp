@@ -1,5 +1,6 @@
 #include "Game.h"
 
+#include <iostream>
 #include <SFML/Graphics/Texture.hpp>
 
 #include "Test.h"
@@ -37,6 +38,7 @@ void Game::draw() {
 }
 
 void Game::handleInput(sf::Event& event) {
+    drawing_manager.getDrawings().at(0)->draw();
     input_manager.manage(event);
 }
 
@@ -50,11 +52,10 @@ void Game::init() {
     sf::Sprite sprite{};
     sprite.setTexture(texture);
     sprite.scale(8.0f, 8.0f);
+    sprite.setPosition(sf::Vector2{212.0f, 0.0f});
 
-    sf::Sprite sprite2{};
-    sprite2.setTexture(texture);
-
-    Test test{"Hello", sprite, sf::Event::KeyPressed};
-
-    input_manager.setListner(test.getEventType(), std::bind(&Test::atInput, &test, std::placeholders::_1));
+    std::shared_ptr<Element> prt = std::make_shared<Test>(Test{"Hello", sprite, sf::Event::KeyPressed});
+    std::shared_ptr<Drawable> prt_drawable = prt;
+    gameElements.push_back(prt);
+    drawing_manager.setDrawings(prt_drawable);
 }

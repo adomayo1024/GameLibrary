@@ -8,7 +8,8 @@ class DrawingManager {
 public:
     explicit DrawingManager(sf::RenderWindow&);
     void draw();
-    void setDrawings(const std::shared_ptr<Drawable>&);
+    void setDrawings(std::shared_ptr<Drawable>);
+    std::vector<std::shared_ptr<Drawable>> getDrawings();
 private:
     std::vector<std::shared_ptr<Drawable>> drawings;
     sf::RenderWindow& window;

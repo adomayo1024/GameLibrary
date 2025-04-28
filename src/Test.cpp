@@ -6,16 +6,13 @@
 #include <iostream>
 
 Test::Test(const std::string text,
-            sf::Sprite& sprite,
+            sf::Sprite sprite,
             sf::Event::EventType eventType)
-    : text(text), sprite(sprite), eventType(eventType) {
+    : Element(sprite), text(text), eventType(eventType) {
 }
 
-Test::Test(const Test& test): text(test.text), sprite(test.sprite), eventType(test.eventType) {
-}
 
 Test::~Test() {
-    std::cout << text << std::endl;
 }
 
 
@@ -27,19 +24,8 @@ void Test::setText(std::string newText) {
     text = newText;
 }
 
-sf::Sprite& Test::getSprite() const {
-    return sprite;
-}
-
-
-
 void Test::update() {
     sprite.setPosition(sprite.getPosition().x + 0.1f, sprite.getPosition().y + 0.1f);
-}
-
-
-sf::Drawable& Test::draw() {
-    return sprite;
 }
 
  sf::Event::EventType Test::getEventType() const {

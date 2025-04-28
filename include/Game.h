@@ -4,6 +4,8 @@
 #include <UpdateManager.h>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "Element.h"
+
 enum class GameState {
     MENU, TITLE_SCREEN, PLAYING
 };
@@ -27,6 +29,7 @@ private:
     DrawingManager drawing_manager;
     UpdateManager update_manager;
     InputManager input_manager;
+    std::vector<std::shared_ptr<Element>> gameElements;
 
 
 };

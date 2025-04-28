@@ -13,7 +13,11 @@ void DrawingManager::draw() {
 
 }
 
-void DrawingManager::setDrawings(const std::shared_ptr<Drawable>& drawable) {
+void DrawingManager::setDrawings(const std::shared_ptr<Drawable> drawable) {
     drawings.push_back(drawable);
+}
+
+std::vector<std::shared_ptr<Drawable>> DrawingManager::getDrawings() {
+    return drawings;
 }
 
