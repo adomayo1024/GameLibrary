@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "../include/Game.h"
 
 #include <iostream>
 #include <SFML/Graphics/Texture.hpp>
@@ -51,10 +51,11 @@ void Game::init() {
 
     std::shared_ptr<Element> prt = std::make_shared<Test>(Test{"res/haesslichkeit.png", sf::Event::KeyPressed});
     std::shared_ptr<Drawable> prt_drawable = prt;
-    std::shared_ptr<Element> test_element = std::make_shared<Test>("res/haesslichkeit.png", sf::Event::KeyPressed);
-    std::shared_ptr<Drawable> test_drawable = test_element;
+    std::shared_ptr<Element> prt2 = std::make_shared<Test>("res/gruen.png", sf::Event::KeyPressed);
+    std::shared_ptr<Drawable> prt_drawable2 = prt2;
     gameElements.push_back(prt);
-    gameElements.push_back(test_element);
+    gameElements.push_back(prt2);
     drawing_manager.setDrawings(prt_drawable);
-    drawing_manager.setDrawings(test_drawable);
+    drawing_manager.setDrawings(prt_drawable2);
+
 }

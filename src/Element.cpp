@@ -2,20 +2,15 @@
 
 #include <iostream>
 
-int Element::anzahl = 0;
-std::string Element::texturePath = "";
 sf::Texture Element::texture;
+std::string Element::texturePath;
 
-
-Element::Element(std::string textPath) :  sprite(sf::Sprite{}){
+Element::Element(std::string textPath) :  sprite(sf::Sprite()){
     if (texturePath.empty()) {
         texturePath = textPath;
         texture.loadFromFile(texturePath);
     }
     sprite.setTexture(texture);
-    sprite.setScale(10.f, 10.f);
-
-
 }
 
 sf::Sprite& Element::getSprite(){

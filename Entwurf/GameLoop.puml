@@ -1,0 +1,22 @@
+@startuml
+class Game
+class DrawingManager
+class UpdateManager
+class InputManager
+abstract class Element{
+
+}
+abstract class Updatable{
+    +void update()
+  }
+abstract class Drawable {
+    +sf::Drawable draw()
+}
+
+Drawable <|- Element
+Updatable <|- Element
+
+Game -> DrawingManager
+Game -> UpdateManager
+Game -> InputManager
+@enduml

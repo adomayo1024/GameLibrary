@@ -4,7 +4,7 @@
 #include <filesystem>
 
 #include "DrawingManager.h"
-#include "Game.h"
+#include "../include/Game.h"
 #include "InputManager.h"
 #include "Test.h"
 #include "UpdateManager.h"
@@ -23,7 +23,7 @@ int main() {
 
 
     while (game.isRunning()) {
-        sf::Event event;
+        sf::Event event{};
         while (game.getLastEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 game.endGame();

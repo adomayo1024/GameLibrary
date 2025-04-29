@@ -3,6 +3,14 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Drawable.h"
 
+enum class LAYER {
+    FARBACKGROUND,
+    BACKGROUND,
+    MIDDLEGROUND,
+    FOREGROUND,
+    NEARFOREGROUND
+};
+
 class DrawingManager {
 
 public:

@@ -1,9 +1,9 @@
 #pragma once
+
 #include "Drawable.h"
 #include "Updatable.h"
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
-
 
 class Element: public Drawable,
                public Updatable{
@@ -16,9 +16,9 @@ public:
 
 protected:
     sf::Sprite sprite;
-    static sf::Texture texture;
     static std::string texturePath;
-    static int anzahl;
+    static sf::Texture texture;
 
 };
+
 
