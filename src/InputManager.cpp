@@ -14,7 +14,6 @@ keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
 void InputManager::manage(sf::Event &event) {
     if (listnerMap.contains(event.type)) {
         for (const auto& listner : listnerMap[event.type]) {
-            std::cout << "bin in listner" << std::endl;
             listner(event);
         }
     }

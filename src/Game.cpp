@@ -54,6 +54,6 @@ void Game::init() {
     std::shared_ptr<Drawable> prt_drawable = prt;
     gameElements.push_back(prt);
     drawing_manager.setDrawings(prt_drawable);
-    input_manager.setListner(sf::Event::KeyPressed, sf::Keyboard::Key::D, [test](const sf::Event& event) {test->moveRight(event);});
+    test->setListners(input_manager);
 
 }

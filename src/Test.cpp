@@ -26,9 +26,21 @@ void Test::update() {
     return eventType;
 }
 
+void Test::setListners(InputManager & input_manager) {
+    input_manager.setListner(sf::Event::EventType::MouseButtonPressed,
+        [this](const sf::Event& e) {this->atInput(e);});
+    input_manager.setListner(
+        sf::Event::EventType::KeyPressed,
+        sf::Keyboard::Key::D,
+        [this](const sf::Event& e) {this->moveRight(e);});
+}
+
+
 
 void Test::atInput(const sf::Event&) {
-    std::cout << texturePath << std::endl;
+    if (Inputable::isActive()) {
+        std::cout << texturePath << std::endl;
+    }
 }
 
 void Test::moveRight(const sf::Event& event) {
