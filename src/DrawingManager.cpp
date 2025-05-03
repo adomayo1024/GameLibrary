@@ -8,7 +8,9 @@ DrawingManager::DrawingManager(sf::RenderWindow &window)
 
 void DrawingManager::draw() {
     for (const std::shared_ptr<Drawable>& drawing : drawings) {
-        window.draw(drawing->draw());
+        if (drawing->isActive()) {
+            window.draw(drawing->draw());
+        }
     }
 
 }

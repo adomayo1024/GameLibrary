@@ -9,7 +9,7 @@
 #include "Test.h"
 #include "UpdateManager.h"
 
-constexpr  unsigned int CELL_SIZE = 128;
+constexpr unsigned int CELL_SIZE = 128;
 constexpr unsigned int ROWS = 10;
 constexpr unsigned int COLS = 10;
 constexpr unsigned int SCREEN_WIDTH = CELL_SIZE * ROWS;

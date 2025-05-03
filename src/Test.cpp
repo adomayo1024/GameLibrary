@@ -25,6 +25,12 @@ void Test::update() {
     return eventType;
 }
 
+
 void Test::atInput(const sf::Event&) {
     std::cout << texturePath << std::endl;
 }
+
+void Test::moveRight(const sf::Event& event) {
+    sprite.move(4.0, 0.0);
+}
+

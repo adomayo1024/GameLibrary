@@ -16,8 +16,8 @@ public:
 
 protected:
     sf::Sprite sprite;
-    static std::string texturePath;
-    static sf::Texture texture;
+    std::string texturePath;
+    sf::Texture& texture;
 
 };
 

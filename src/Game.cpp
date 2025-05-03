@@ -1,8 +1,10 @@
 #include "../include/Game.h"
 
+#include <complex>
 #include <iostream>
 #include <SFML/Graphics/Texture.hpp>
 
+#include "Storage.h"
 #include "Test.h"
 
 
@@ -48,14 +50,10 @@ GameState Game::getCurrentState() const {
 
 void Game::init() {
 
-
     std::shared_ptr<Element> prt = std::make_shared<Test>(Test{"res/haesslichkeit.png", sf::Event::KeyPressed});
     std::shared_ptr<Drawable> prt_drawable = prt;
-    std::shared_ptr<Element> prt2 = std::make_shared<Test>("res/gruen.png", sf::Event::KeyPressed);
-    std::shared_ptr<Drawable> prt_drawable2 = prt2;
     gameElements.push_back(prt);
-    gameElements.push_back(prt2);
     drawing_manager.setDrawings(prt_drawable);
-    drawing_manager.setDrawings(prt_drawable2);
+    input_manager.setListner(sf::Event::KeyPressed, sf::Keyboard::Key::D, std::bind(&Test::moveRight, &prt, std::placeholders::_1));
 
 }

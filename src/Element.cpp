@@ -2,14 +2,10 @@
 
 #include <iostream>
 
-sf::Texture Element::texture;
-std::string Element::texturePath;
+#include "Storage.h"
 
-Element::Element(std::string textPath) :  sprite(sf::Sprite()){
-    if (texturePath.empty()) {
-        texturePath = textPath;
-        texture.loadFromFile(texturePath);
-    }
+
+Element::Element(std::string textPath) :  sprite(sf::Sprite()), texture(Storage::getTexture(textPath)) {
     sprite.setTexture(texture);
 }
 

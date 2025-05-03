@@ -16,6 +16,7 @@ public:
     void update() override;
     sf::Event::EventType getEventType() const;
     void atInput(const sf::Event&);
+    void moveRight(const sf::Event&);
 private:
     sf::Event::EventType eventType;
 };
