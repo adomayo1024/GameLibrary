@@ -5,7 +5,9 @@
 #include "Storage.h"
 
 
-Element::Element(std::string textPath) :  sprite(sf::Sprite()), texture(Storage::getTexture(textPath)) {
+Element::Element(std::string textPath) :  sprite(sf::Sprite()),
+texture(Storage::getTexture(textPath)),
+texturePath(textPath) {
     sprite.setTexture(texture);
 }
 

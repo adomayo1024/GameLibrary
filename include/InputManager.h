@@ -10,9 +10,13 @@ class InputManager {
 public:
     explicit InputManager();
     void manage(sf::Event &);
-    void setListner(const sf::Event::EventType&,
+    void setListner(
+        const sf::Event::EventType&,
         const std::function<void(const sf::Event&)>&);
-    void setListner(const sf::Event::EventType&, const sf::Keyboard::Key&, const std::function<void(const sf::Event&)>&);
+    void setListner(
+        const sf::Event::EventType&,
+        const sf::Keyboard::Key&,
+        const std::function<void(const sf::Event&)>&);
 
 private:
     std::map<sf::Event::EventType,

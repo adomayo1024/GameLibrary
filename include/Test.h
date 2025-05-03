@@ -10,7 +10,7 @@
 class Test : public Element{
 public:
     explicit Test(std::string, sf::Event::EventType);
-    ~Test();
+    ~Test() override;
     void setEventType(sf::Event::EventType);
     void setText(std::string);
     void update() override;

@@ -25,7 +25,8 @@ void InputManager::manage(sf::Event &event) {
     }
 }
 
-void InputManager::setListner(const sf::Event::EventType& event,
+void InputManager::setListner(
+    const sf::Event::EventType& event,
     const sf::Keyboard::Key &key,
     const std::function<void(const sf::Event &)> &function) {
     keyMap[event][key].push_back(function);

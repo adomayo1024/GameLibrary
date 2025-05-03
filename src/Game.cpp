@@ -49,11 +49,11 @@ GameState Game::getCurrentState() const {
 }
 
 void Game::init() {
-
-    std::shared_ptr<Element> prt = std::make_shared<Test>(Test{"res/haesslichkeit.png", sf::Event::KeyPressed});
+    std::shared_ptr<Test> test = std::make_shared<Test>(Test{"res/haesslichkeit.png", sf::Event::KeyPressed});
+    std::shared_ptr<Element> prt = test;
     std::shared_ptr<Drawable> prt_drawable = prt;
     gameElements.push_back(prt);
     drawing_manager.setDrawings(prt_drawable);
-    input_manager.setListner(sf::Event::KeyPressed, sf::Keyboard::Key::D, std::bind(&Test::moveRight, &prt, std::placeholders::_1));
+    input_manager.setListner(sf::Event::KeyPressed, sf::Keyboard::Key::D, [test](const sf::Event& event) {test->moveRight(event);});
 
 }

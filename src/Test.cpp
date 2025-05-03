@@ -9,6 +9,7 @@ Test::Test(const std::string textPath,
 
 
 Test::~Test() {
+    std::cout << "Test deleted" << std::endl;
 }
 
 
