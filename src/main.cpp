@@ -22,8 +22,6 @@ int main() {
 
     Game game{SCREEN_WIDTH, SCREEN_HEIGHT};
     game.init();
-    sf::Clock clock;
-    int i = 0;
 
     while (game.isRunning()) {
         sf::Event event{};
@@ -35,13 +33,6 @@ int main() {
         }
         game.handleStillPressedKeys();
         game.draw();
-        i++;
-
-        if (clock.getElapsedTime().asSeconds() > 1.0) {
-            std::cout << i << std::endl;
-            i = 0;
-            clock.restart();
-        }
 
     }
 

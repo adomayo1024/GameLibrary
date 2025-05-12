@@ -12,16 +12,16 @@
 
 InputManager::InputManager()
 : listnerMap(std::map<sf::Event::EventType,
-std::vector<std::function<void(const sf::Event&)>>>{}),
+std::vector<inputHandlerFunktion>>{}),
 keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
-    std::vector<std::function<void(const sf::Event&)>>>>{}){
+    std::vector<inputHandlerFunktion>>>{}){
 }
 
 void InputManager::manage(sf::Event &event) {
 
     if (listnerMap.contains(event.type)) {
         for (const auto& listner : listnerMap[event.type]) {
-            listner(event);
+            listner(event, 1);// TODO wert richtig setzten
         }
     }
     else if (keyMap.contains(event.type)) {
@@ -43,7 +43,7 @@ void InputManager::handleStillPressedKeys() {
             sf::Event newEvent;
             newEvent.type = EventType::KeyPressed;
             newEvent.key.code = key;
-            listner(newEvent);
+            listner(newEvent, 1); // TODO wert richtig setzten
         }
     }
 }
@@ -56,7 +56,7 @@ void InputManager::setListner(std::tuple<
 
     sf::Event::EventType type = std::get<0>(tupel);
     sf::Keyboard::Key key = std::get<1>(tupel);
-    std::function<void(const sf::Event&)> function = std::move(std::get<2>(tupel));
+    inputHandlerFunktion function = std::move(std::get<2>(tupel));
 
     if (std::get<1>(tupel)) {
         keyMap[type][key].push_back(function);

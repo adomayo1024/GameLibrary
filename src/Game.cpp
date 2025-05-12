@@ -12,6 +12,7 @@ drawing_manager(DrawingManager{window}),
 update_manager(UpdateManager{}),
 input_manager(InputManager{}){
     window.setKeyRepeatEnabled(false);
+    window.setFramerateLimit(120);
 
 }
 

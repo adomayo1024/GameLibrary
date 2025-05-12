@@ -5,7 +5,7 @@
 
 Test::Test(const std::string textPath,
            sf::Event::EventType eventType)
-    : Element(textPath), eventType(eventType), velocity(1) {
+    : Element(textPath), eventType(eventType), velocity(100) {
 }
 
 
@@ -27,32 +27,32 @@ void Test::update() {
     return eventType;
 }
 
-std::vector<std::tuple<sf::Event::EventType, sf::Keyboard::Key, std::function<void(const sf::Event &)>>>
+std::vector<std::tuple<sf::Event::EventType, sf::Keyboard::Key, inputHandlerFunktion>>
 Test::giveEventListner() {
     std::vector<std::tuple<
         sf::Event::EventType,
         sf::Keyboard::Key,
-        std::function<void(const sf::Event&)>>> liste;
+        inputHandlerFunktion>> liste;
 
     liste.emplace_back(
         sf::Event::EventType::KeyPressed,
         sf::Keyboard::Key::Right,
-        [this](const sf::Event& e) {this->moveRight(e);});
+        [this](const sf::Event& e, float deltaTime) {this->moveRight(e, deltaTime);});
 
     liste.emplace_back(
         sf::Event::EventType::KeyPressed,
         sf::Keyboard::Key::Left,
-        [this](const sf::Event& e) {this->moveLeft(e);});
+        [this](const sf::Event& e, float deltaTime) {this->moveLeft(e, deltaTime);});
 
     liste.emplace_back(
         sf::Event::EventType::KeyPressed,
         sf::Keyboard::Key::Up,
-        [this](const sf::Event& e) {this->moveUp(e);});
+        [this](const sf::Event& e, float deltaTime) {this->moveUp(e, deltaTime);});
 
     liste.emplace_back(
         sf::Event::EventType::KeyPressed,
         sf::Keyboard::Key::Down,
-        [this](const sf::Event& e) {this->moveDown(e);});
+        [this](const sf::Event& e, float deltaTime) {this->moveDown(e, deltaTime);});
 
 
     return liste;
@@ -61,32 +61,32 @@ Test::giveEventListner() {
 
 
 
-void Test::atInput(const sf::Event&) {
+void Test::atInput(const sf::Event& event, float) {
     if (Inputable::isActive()) {
         std::cout << texturePath << std::endl;
     }
 }
 
-void Test::moveRight(const sf::Event& event) {
+void Test::moveRight(const sf::Event& event, float deltaTime) {
     if (Inputable::isActive()) {
-        sprite.move(velocity, 0.0);
+        sprite.move(velocity * (deltaTime / 120), 0.0);
     }
 }
 
-void Test::moveLeft(const sf::Event &) {
+void Test::moveLeft(const sf::Event& event, float deltaTime) {
     if (Inputable::isActive()) {
-        sprite.move(velocity * -1, 0.0);
+        sprite.move(velocity * -1 * (deltaTime / 120), 0.0);
     }
 }
 
-void Test::moveUp(const sf::Event& event) {
+void Test::moveUp(const sf::Event& event, float deltaTime) {
     if (Inputable::isActive()) {
-        sprite.move(0.0, velocity * -1);
+        sprite.move(0.0, velocity * -1 * (deltaTime / 120));
     }
 }
 
-void Test::moveDown(const sf::Event& event) {
+void Test::moveDown(const sf::Event& event, float deltaTime) {
     if (Inputable::isActive()) {
-        sprite.move(0.0, velocity);
+        sprite.move(0.0, velocity * (deltaTime / 120));
     }
 }
