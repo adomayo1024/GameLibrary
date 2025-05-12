@@ -1,6 +1,12 @@
 #include "../include/InputManager.h"
 #include <iostream>
+#include <tuple>
+#include <tuple>
 #include <utility>
+
+#include "Storage.h"
+#include "TypBenenungen.h"
+
 
 
 
@@ -12,33 +18,62 @@ keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
 }
 
 void InputManager::manage(sf::Event &event) {
+
     if (listnerMap.contains(event.type)) {
         for (const auto& listner : listnerMap[event.type]) {
             listner(event);
         }
     }
     else if (keyMap.contains(event.type)) {
-        for (const auto& listener : keyMap[event.type][event.key.code]) {
-            listener(event);
+        Key key = event.key.code;
+        if (!Storage::containsKey(key)) {
+            Storage::addKey(key);
+        }
+    }
+    else if (event.type == sf::Event::KeyReleased) {
+        Storage::removeKey(event.key.code);
+    }
+}
+
+
+void InputManager::handleStillPressedKeys() {
+    for (auto i : Storage::getPressedKeys()) {
+        Key key = i.first;
+        for (const auto& listner : keyMap[EventType::KeyPressed][key]) {
+            sf::Event newEvent;
+            newEvent.type = EventType::KeyPressed;
+            newEvent.key.code = key;
+            listner(newEvent);
         }
     }
 }
 
-void InputManager::setListner(
-    const sf::Event::EventType& event,
-    const sf::Keyboard::Key &key,
-    const std::function<void(const sf::Event &)> &function) {
-    keyMap[event][key].push_back(function);
+
+void InputManager::setListner(std::tuple<
+    EventType,
+    Key,
+    inputHandlerFunktion> tupel) {
+
+    sf::Event::EventType type = std::get<0>(tupel);
+    sf::Keyboard::Key key = std::get<1>(tupel);
+    std::function<void(const sf::Event&)> function = std::move(std::get<2>(tupel));
+
+    if (std::get<1>(tupel)) {
+        keyMap[type][key].push_back(function);
+    }
+    else {
+        listnerMap[type].push_back(function);
+    }
 }
 
-
-/**
- *
- * @param event das Event für welches man sich anmelden will
- * @param function die Funktion die aufgerufen werden soll, wenn das Event passiert ist
- */
-void InputManager::setListner(const sf::Event::EventType& event,
-                              const std::function<void(const sf::Event&)>& function) {
-    listnerMap[event].push_back(function);
+void InputManager::setListners(std::vector<
+    std::tuple<
+    EventType,
+    Key,
+    inputHandlerFunktion>>& listners) {
+    for (auto& listner : listners) {
+        setListner(listner);
+    }
 }
+
 

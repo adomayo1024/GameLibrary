@@ -1,7 +1,15 @@
 #pragma once
 
 
+#include <iosfwd>
+#include <iosfwd>
+#include <iosfwd>
+#include <iosfwd>
 #include <string>
+#include <vector>
+#include <vector>
+#include <vector>
+#include <vector>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Window/Event.hpp>
 #include "Element.h"
@@ -19,7 +27,13 @@ public:
     sf::Event::EventType getEventType() const;
     void atInput(const sf::Event&);
     void moveRight(const sf::Event&);
-    void setListners(InputManager&) override;
+    void moveLeft(const sf::Event&);
+    void moveUp(const sf::Event&);
+    void moveDown(const sf::Event&);
+
+    std::vector<std::tuple<sf::Event::EventType, sf::Keyboard::Key, std::function<void(const sf::Event &) >>>
+    giveEventListner() override;
 private:
     sf::Event::EventType eventType;
+    float velocity;
 };

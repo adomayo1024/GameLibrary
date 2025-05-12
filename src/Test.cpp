@@ -1,10 +1,11 @@
 #include "../include/Test.h"
 #include <iostream>
-
+#include <tuple>
+#include <vector>
 
 Test::Test(const std::string textPath,
-            sf::Event::EventType eventType)
-    : Element(textPath), eventType(eventType) {
+           sf::Event::EventType eventType)
+    : Element(textPath), eventType(eventType), velocity(1) {
 }
 
 
@@ -26,13 +27,36 @@ void Test::update() {
     return eventType;
 }
 
-void Test::setListners(InputManager & input_manager) {
-    input_manager.setListner(sf::Event::EventType::MouseButtonPressed,
-        [this](const sf::Event& e) {this->atInput(e);});
-    input_manager.setListner(
+std::vector<std::tuple<sf::Event::EventType, sf::Keyboard::Key, std::function<void(const sf::Event &)>>>
+Test::giveEventListner() {
+    std::vector<std::tuple<
+        sf::Event::EventType,
+        sf::Keyboard::Key,
+        std::function<void(const sf::Event&)>>> liste;
+
+    liste.emplace_back(
         sf::Event::EventType::KeyPressed,
-        sf::Keyboard::Key::D,
+        sf::Keyboard::Key::Right,
         [this](const sf::Event& e) {this->moveRight(e);});
+
+    liste.emplace_back(
+        sf::Event::EventType::KeyPressed,
+        sf::Keyboard::Key::Left,
+        [this](const sf::Event& e) {this->moveLeft(e);});
+
+    liste.emplace_back(
+        sf::Event::EventType::KeyPressed,
+        sf::Keyboard::Key::Up,
+        [this](const sf::Event& e) {this->moveUp(e);});
+
+    liste.emplace_back(
+        sf::Event::EventType::KeyPressed,
+        sf::Keyboard::Key::Down,
+        [this](const sf::Event& e) {this->moveDown(e);});
+
+
+    return liste;
+
 }
 
 
@@ -44,6 +68,25 @@ void Test::atInput(const sf::Event&) {
 }
 
 void Test::moveRight(const sf::Event& event) {
-    sprite.move(4.0, 0.0);
+    if (Inputable::isActive()) {
+        sprite.move(velocity, 0.0);
+    }
 }
 
+void Test::moveLeft(const sf::Event &) {
+    if (Inputable::isActive()) {
+        sprite.move(velocity * -1, 0.0);
+    }
+}
+
+void Test::moveUp(const sf::Event& event) {
+    if (Inputable::isActive()) {
+        sprite.move(0.0, velocity * -1);
+    }
+}
+
+void Test::moveDown(const sf::Event& event) {
+    if (Inputable::isActive()) {
+        sprite.move(0.0, velocity);
+    }
+}

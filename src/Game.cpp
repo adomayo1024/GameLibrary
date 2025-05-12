@@ -1,11 +1,9 @@
 #include "../include/Game.h"
 
-#include <complex>
-#include <iostream>
-#include <SFML/Graphics/Texture.hpp>
-
 #include "Storage.h"
 #include "Test.h"
+#include "TypBenenungen.h"
+
 
 
 Game::Game(int width, int heigth, const std::string& title)  :
@@ -13,6 +11,7 @@ window(sf::RenderWindow{sf::VideoMode(width, heigth), title}),
 drawing_manager(DrawingManager{window}),
 update_manager(UpdateManager{}),
 input_manager(InputManager{}){
+    window.setKeyRepeatEnabled(false);
 
 }
 
@@ -40,8 +39,13 @@ void Game::draw() {
 }
 
 void Game::handleInput(sf::Event& event) {
-    drawing_manager.getDrawings().at(0)->draw();
     input_manager.manage(event);
+}
+
+void Game::handleStillPressedKeys() {
+    if (Storage::areAnyKeysPressed()) {
+        input_manager.handleStillPressedKeys();
+    }
 }
 
 GameState Game::getCurrentState() const {
@@ -54,6 +58,6 @@ void Game::init() {
     std::shared_ptr<Drawable> prt_drawable = prt;
     gameElements.push_back(prt);
     drawing_manager.setDrawings(prt_drawable);
-    test->setListners(input_manager);
-
+    std::vector<std::tuple<EventType,Key,inputHandlerFunktion>> liste = test->giveEventListner();
+    input_manager.setListners(liste);
 }

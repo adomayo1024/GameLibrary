@@ -8,6 +8,7 @@
 #include "InputManager.h"
 #include "Test.h"
 #include "UpdateManager.h"
+#include "TypBenenungen.h"
 
 constexpr unsigned int CELL_SIZE = 128;
 constexpr unsigned int ROWS = 10;
@@ -16,11 +17,13 @@ constexpr unsigned int SCREEN_WIDTH = CELL_SIZE * ROWS;
 constexpr unsigned int SCREEN_HEIGHT =  CELL_SIZE * COLS;
 
 
+
 int main() {
+
     Game game{SCREEN_WIDTH, SCREEN_HEIGHT};
     game.init();
-
-
+    sf::Clock clock;
+    int i = 0;
 
     while (game.isRunning()) {
         sf::Event event{};
@@ -30,8 +33,16 @@ int main() {
             }
             game.handleInput(event);
         }
-
+        game.handleStillPressedKeys();
         game.draw();
+        i++;
+
+        if (clock.getElapsedTime().asSeconds() > 1.0) {
+            std::cout << i << std::endl;
+            i = 0;
+            clock.restart();
+        }
+
     }
 
 }

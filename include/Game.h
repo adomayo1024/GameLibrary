@@ -20,6 +20,7 @@ public:
     bool getLastEvent(sf::Event& event);
     void draw();
     void handleInput(sf::Event& event);
+    void handleStillPressedKeys();
     void init();
     GameState getCurrentState() const;
 private:

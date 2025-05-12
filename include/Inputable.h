@@ -1,5 +1,6 @@
 #pragma once
 #include "InputManager.h"
+#include "TypBenenungen.h"
 
 class Inputable {
     public:
@@ -7,7 +8,8 @@ class Inputable {
     virtual ~Inputable() = default;
     void switchActivity() {active %= 1;}
     bool isActive() const {return active;}
-    virtual void setListners(InputManager&) = 0;
-private:
-    bool active = false;
+    virtual std::vector<std::tuple<EventType, Key, inputHandlerFunktion>>
+    giveEventListner() = 0;
+protected:
+    bool active = true;
 };
