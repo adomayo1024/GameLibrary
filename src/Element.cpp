@@ -7,7 +7,8 @@
 
 Element::Element(std::string textPath) :  sprite(sf::Sprite()),
 texture(Storage::getTexture(textPath)),
-texturePath(textPath) {
+texturePath(textPath),
+deltaClock(sf::Clock{}){
     sprite.setTexture(texture);
 }
 

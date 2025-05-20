@@ -71,7 +71,6 @@ void Test::moveRight(const sf::Event& event, float deltaTime) {
     if (Inputable::isActive()) {
         sprite.move(velocity * deltaTime, 0.0);
     }
-    std::cout << sprite.getPosition().x << std::endl;
 }
 
 void Test::moveLeft(const sf::Event& event, float deltaTime) {

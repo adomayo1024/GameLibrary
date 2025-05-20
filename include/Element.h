@@ -4,6 +4,7 @@
 #include "Updatable.h"
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/Clock.hpp>
 
 class Element: public Drawable,
                public Updatable{
@@ -18,6 +19,7 @@ protected:
     sf::Sprite sprite;
     std::string texturePath;
     sf::Texture& texture;
+    sf::Clock deltaClock;
 
 };
 
