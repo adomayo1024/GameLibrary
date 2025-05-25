@@ -6,7 +6,7 @@
 std::map<std::string, sf::Texture> Storage::textureSaves;
 std::map<Key, sf::Clock> Storage::keyClocks;
 
-sf::Texture& Storage::getTexture(std::string& fileName) {
+sf::Texture& Storage::getTexture(std::string fileName) {
     if (!textureSaves.contains(fileName)) {
         textureSaves[fileName] = sf::Texture();
         textureSaves[fileName].loadFromFile(fileName);

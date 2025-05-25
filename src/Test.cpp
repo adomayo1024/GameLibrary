@@ -3,9 +3,11 @@
 #include <tuple>
 #include <vector>
 
+#include "Storage.h"
+
 Test::Test(const std::string textPath,
            sf::Event::EventType eventType)
-    : Element(textPath), eventType(eventType), velocity(10000) {
+    : Element(textPath), eventType(eventType), velocity(100) {
 }
 
 
@@ -20,7 +22,7 @@ void Test::setEventType(sf::Event::EventType newEventType) {
 
 
 void Test::update() {
-    sprite.setPosition(sprite.getPosition().x + 0.1f, sprite.getPosition().y + 0.1f);
+    //sprite.setPosition(sprite.getPosition().x + 0.1f, sprite.getPosition().y + 0.1f);
 }
 
  sf::Event::EventType Test::getEventType() const {
@@ -58,9 +60,6 @@ Test::giveEventListner() {
     return liste;
 
 }
-
-
-
 void Test::atInput(const sf::Event& event, float) {
     if (Inputable::isActive()) {
         std::cout << texturePath << std::endl;

@@ -3,15 +3,18 @@
 
 class Time {
 public:
-    Time(float);
+    explicit Time(float);
+    ~Time();
     void restartDeltaClock();
     float getDeltaTime();
     float getWholeTime();
-
-
+    float getWholeTimeThisSession();
+    void setWholeTime(float);
+    void newFrame();
 
 private:
     sf::Clock wholeTimeClock;
     sf::Clock deltaTimeClock;
-    float wholeTime;
+    float deltaTime;
+    float timePass;
 };

@@ -12,4 +12,5 @@ class Inputable {
     giveEventListner() = 0;
 protected:
     bool active = true;
+    float timeLastFrame = 0;
 };

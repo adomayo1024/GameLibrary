@@ -1,16 +1,36 @@
 #include "../include/Time.h"
 
-Time::Time(float passTime) : wholeTimeClock(sf::Clock{}), deltaTimeClock(sf::Clock{}), wholeTime(passTime) {
+#include <iostream>
+#include <ostream>
 
+Time::Time(float passTime) : wholeTimeClock(sf::Clock{}), deltaTimeClock(sf::Clock{}), timePass(passTime){
+}
+
+Time::~Time() {
+    std::cout << wholeTimeClock.getElapsedTime().asSeconds() << std::endl;
 }
 
 float Time::getDeltaTime() {
-    return deltaTimeClock.getElapsedTime().asSeconds();
+    return deltaTime;
+}
+
+void Time::newFrame() {
+    deltaTime = deltaTimeClock.restart().asSeconds();
+    deltaTimeClock.restart();
 }
 
 float Time::getWholeTime() {
-    return wholeTimeClock.getElapsedTime().asSeconds() + wholeTime;
+    return wholeTimeClock.getElapsedTime().asSeconds() + timePass;
 }
+
+float Time::getWholeTimeThisSession() {
+    return wholeTimeClock.getElapsedTime().asSeconds();
+}
+
+void Time::setWholeTime(float timePass) {
+    this->timePass = timePass;
+}
+
 
 void Time::restartDeltaClock() {
     deltaTimeClock.restart();

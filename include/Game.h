@@ -5,6 +5,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Element.h"
+#include "Time.h"
 
 enum class GameState {
     MENU, TITLE_SCREEN, PLAYING
@@ -19,8 +20,13 @@ public:
     bool isRunning() const;
     bool getLastEvent(sf::Event& event);
     void draw();
+    void update();
     void handleInput(sf::Event& event);
     void handleStillPressedKeys();
+    void save();
+    void newFrame();
+    void makeGameObject(std::string pfadName);
+
     void init();
     GameState getCurrentState() const;
 private:
@@ -31,6 +37,7 @@ private:
     UpdateManager update_manager;
     InputManager input_manager;
     std::vector<std::shared_ptr<Element>> gameElements;
+    Time time;
 
 
 };

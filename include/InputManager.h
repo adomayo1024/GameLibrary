@@ -10,7 +10,7 @@
 class InputManager {
 public:
     explicit InputManager();
-    void manage(sf::Event &);
+    void manage(sf::Event &, float);
     void setListner(std::tuple<
         EventType,
         Key,
@@ -20,7 +20,7 @@ public:
     EventType,
     Key,
     inputHandlerFunktion>>&);
-    void handleStillPressedKeys();
+    void handleStillPressedKeys(float);
 
 private:
     std::map<sf::Event::EventType,

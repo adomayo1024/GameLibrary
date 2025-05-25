@@ -32,8 +32,9 @@ int main() {
             game.handleInput(event);
         }
         game.handleStillPressedKeys();
+        game.update();
         game.draw();
-
+        game.newFrame();
     }
 
 }

@@ -17,11 +17,11 @@ keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
     std::vector<inputHandlerFunktion>>>{}){
 }
 
-void InputManager::manage(sf::Event &event) {
+void InputManager::manage(sf::Event &event, float passTime) {
 
     if (listnerMap.contains(event.type)) {
         for (const auto& listner : listnerMap[event.type]) {
-            listner(event, 1);// TODO wert richtig setzten
+            listner(event, passTime);
         }
     }
     else if (keyMap.contains(event.type)) {
@@ -36,14 +36,14 @@ void InputManager::manage(sf::Event &event) {
 }
 
 
-void InputManager::handleStillPressedKeys() {
+void InputManager::handleStillPressedKeys(float passTime) {
     for (auto i : Storage::getPressedKeys()) {
         Key key = i.first;
         for (const auto& listner : keyMap[EventType::KeyPressed][key]) {
             sf::Event newEvent;
             newEvent.type = EventType::KeyPressed;
             newEvent.key.code = key;
-            listner(newEvent, 1); // TODO wert richtig setzten
+            listner(newEvent, passTime);
         }
     }
 }

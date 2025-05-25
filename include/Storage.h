@@ -10,7 +10,7 @@ class Storage {
 
 public:
     Storage() = default;
-    static sf::Texture& getTexture(std::string&);
+    static sf::Texture& getTexture(std::string);
     static const std::map<Key, sf::Clock> getPressedKeys();
     static void addKey(const Key);
     static bool containsKey(const Key);
