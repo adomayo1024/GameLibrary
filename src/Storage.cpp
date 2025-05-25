@@ -1,7 +1,6 @@
 #include "Storage.h"
 
 #include <iostream>
-#include <ostream>
 
 std::map<std::string, sf::Texture> Storage::textureSaves;
 std::map<Key, sf::Clock> Storage::keyClocks;

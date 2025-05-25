@@ -1,14 +1,6 @@
-#include <iostream>
-#include <memory>
 #include <SFML/Graphics.hpp>
-#include <filesystem>
-
-#include "DrawingManager.h"
 #include "../include/Game.h"
-#include "InputManager.h"
 #include "Test.h"
-#include "UpdateManager.h"
-#include "TypBenenungen.h"
 
 constexpr unsigned int CELL_SIZE = 128;
 constexpr unsigned int ROWS = 10;

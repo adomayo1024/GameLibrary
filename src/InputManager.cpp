@@ -1,6 +1,4 @@
 #include "../include/InputManager.h"
-#include <iostream>
-#include <tuple>
 #include <tuple>
 #include <utility>
 

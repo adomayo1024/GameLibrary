@@ -1,20 +1,10 @@
 #pragma once
 
-
-#include <iosfwd>
-#include <iosfwd>
-#include <iosfwd>
-#include <iosfwd>
 #include <string>
 #include <vector>
-#include <vector>
-#include <vector>
-#include <vector>
-#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Window/Event.hpp>
 #include "Element.h"
 #include "Inputable.h"
-#include "InputManager.h"
 
 
 class Test : public Element, public Inputable{
