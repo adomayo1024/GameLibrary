@@ -5,12 +5,12 @@
 std::map<std::string, sf::Texture> Storage::textureSaves;
 std::map<Key, sf::Clock> Storage::keyClocks;
 
-sf::Texture& Storage::getTexture(std::string fileName) {
-    if (!textureSaves.contains(fileName)) {
-        textureSaves[fileName] = sf::Texture();
-        textureSaves[fileName].loadFromFile(fileName);
+sf::Texture& Storage::getTexture(std::string path) {
+    if (!textureSaves.contains(path)) {
+        textureSaves[path] = sf::Texture();
+        textureSaves[path].loadFromFile(path);
     }
-    return textureSaves[fileName];
+    return textureSaves[path];
 }
 
 void Storage::addKey(const Key key) {
