@@ -30,11 +30,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE SFML_INCLUDE_DIRS include)
 # Libary erstellen
 
 
-add_library(GAME_ENGINE STATIC ${SOURCESWITHOUTMAIN} ${SOURCESH})
+add_library(Game_Engine STATIC ${SOURCESWITHOUTMAIN} ${SOURCESH})
 
-target_include_directories(GAME_ENGINE PUBLIC include)
+target_include_directories(Game_Engine PUBLIC include)
 
-target_link_libraries(GAME_ENGINE PRIVATE sfml-graphics sfml-window sfml-system)
+target_link_libraries(Game_Engine PRIVATE sfml-graphics sfml-window sfml-system)
 
 
 # Tests
@@ -49,11 +49,11 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(TESTS  ${SOURCESTESTS})
+add_executable(Test  ${SOURCESTESTS})
 
-target_link_libraries(TESTS PRIVATE GAME_ENGINE sfml-graphics sfml-window sfml-system gtest_main)
-target_include_directories(TESTS PRIVATE SFML_INCLUDE_DIRS include)
+target_link_libraries(Test PRIVATE Game_Engine sfml-graphics sfml-window sfml-system gtest_main)
+target_include_directories(Test PRIVATE SFML_INCLUDE_DIRS include)
 
 
 include(GoogleTest)
-gtest_discover_tests(TESTS)
+gtest_discover_tests(Test)
