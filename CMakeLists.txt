@@ -6,21 +6,38 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(SFML_DIR /usr/lib/x86_64-linux-gnu/cmake/SFML)
 set(SFML_INCLUDE_DIRS /usr/include/SFML)
 set(CPPUNITE_INCLUDE_DIRS /usr/include/cppunit)
+set(MAIN_FILE "${CMAKE_SOURCE_DIR}/src/main.cpp")
+
+# Externe Libary finden
 
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+
+# alle Header Datei etc. zusammenführen
+
 file(COPY res DESTINATION ${CMAKE_BINARY_DIR})
-file(GLOB_RECURSE SOURCESSRC CONFIGURE_DEPENDS src/*.cpp)
+file(GLOB_RECURSE SOURCESSRC CONFIGURE_DEPENDS src/*.cpp)#
+file(GLOB_RECURSE SOURCESWITHOUTMAIN CONFIGURE_DEPENDS src/*.cpp)
+list(REMOVE_ITEM SOURCESWITHOUTMAIN ${MAIN_FILE})
 file(GLOB_RECURSE SOURCESTESTS CONFIGURE_DEPENDS tests/*.cpp)
 file(GLOB_RECURSE SOURCESH CONFIGURE_DEPENDS include/*.h)
 
+# Ausfürbare Datei erstellen
 
-add_executable(${PROJECT_NAME} ${SOURCESSRC} ${SOURCESH}
-        tests/InputMangerTest.cpp)
-
+add_executable(${PROJECT_NAME} ${SOURCESSRC} ${SOURCESH})
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-window sfml-system)
 target_include_directories(${PROJECT_NAME} PRIVATE SFML_INCLUDE_DIRS include)
 
+# Libary erstellen
 
+
+add_library(GAME_ENGINE STATIC ${SOURCESWITHOUTMAIN} ${SOURCESH})
+
+target_include_directories(GAME_ENGINE PUBLIC include)
+
+target_link_libraries(GAME_ENGINE PRIVATE sfml-graphics sfml-window sfml-system)
+
+
+# Tests
 
 include(FetchContent)
 
@@ -34,7 +51,7 @@ enable_testing()
 
 add_executable(TESTS  ${SOURCESTESTS})
 
-target_link_libraries(TESTS PRIVATE sfml-graphics sfml-window sfml-system gtest_main)
+target_link_libraries(TESTS PRIVATE GAME_ENGINE sfml-graphics sfml-window sfml-system gtest_main)
 target_include_directories(TESTS PRIVATE SFML_INCLUDE_DIRS include)
 
 
