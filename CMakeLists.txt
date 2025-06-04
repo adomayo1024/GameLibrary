@@ -7,6 +7,8 @@ set(SFML_DIR /usr/lib/x86_64-linux-gnu/cmake/SFML)
 set(SFML_INCLUDE_DIRS /usr/include/SFML)
 set(CPPUNITE_INCLUDE_DIRS /usr/include/cppunit)
 set(MAIN_FILE "${CMAKE_SOURCE_DIR}/src/main.cpp")
+set(LIBRARY_NAME Game_Engine)
+set(WINDOWS_SFML_DLLS_LOCATION "C:/SFML-2.6.2/bin")
 
 # Externe Libary finden
 
@@ -30,11 +32,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE SFML_INCLUDE_DIRS include)
 # Libary erstellen
 
 
-add_library(Game_Engine STATIC ${SOURCESWITHOUTMAIN} ${SOURCESH})
+add_library(LIBRARY_NAME STATIC ${SOURCESWITHOUTMAIN} ${SOURCESH})
 
-target_include_directories(Game_Engine PUBLIC include)
+target_include_directories(LIBRARY_NAME PUBLIC include)
 
-target_link_libraries(Game_Engine PRIVATE sfml-graphics sfml-window sfml-system)
+target_link_libraries(LIBRARY_NAME PRIVATE sfml-graphics sfml-window sfml-system)
 
 
 # Tests
@@ -51,9 +53,21 @@ enable_testing()
 
 add_executable(Test  ${SOURCESTESTS})
 
-target_link_libraries(Test PRIVATE Game_Engine sfml-graphics sfml-window sfml-system gtest_main)
+target_link_libraries(Test PRIVATE LIBRARY_NAME sfml-graphics sfml-window sfml-system gtest_main)
 target_include_directories(Test PRIVATE SFML_INCLUDE_DIRS include)
 
 
 include(GoogleTest)
 gtest_discover_tests(Test)
+
+
+# Windows Sachen dll zufügen
+
+if (WIN32)
+    add_custom_command(TARGET ${PROJECT_NAME}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${WINDOWS_SFML_DLLS_LOCATION}/sfml-system-d-2.dll"
+            "${WINDOWS_SFML_DLLS_LOCATION}/sfml-window-d-2.dll"
+            "${WINDOWS_SFML_DLLS_LOCATION}/sfml-graphics-d-2.dll"
+            $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+endif()
