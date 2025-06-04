@@ -3,10 +3,10 @@
 
 namespace myGE {
 
-class Time {
+class MyTime {
 public:
-    explicit Time(float);
-    ~Time();
+    explicit MyTime(float);
+    ~MyTime();
     void restartDeltaClock();
     float getDeltaTime();
     float getWholeTime();

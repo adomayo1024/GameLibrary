@@ -2,7 +2,7 @@
 #include "Storage.h"
 #include "Test.h"
 #include "TypBenenungen.h"
-#include "Time.h"
+#include "MyTime.h"
 
 
 myGE::Game::Game(int width, int heigth, const std::string& title)  :
@@ -10,7 +10,7 @@ window(sf::RenderWindow{sf::VideoMode(width, heigth), title}),
 drawing_manager(DrawingManager{window}),
 update_manager(UpdateManager{}),
 input_manager(InputManager{}),
-time(Time{0}) {
+time(MyTime{0}) {
     window.setKeyRepeatEnabled(false);
     window.setFramerateLimit(120);
     time.setWholeTime(0);   // TODO die Zeit muss aus einer Datei gelesen werden

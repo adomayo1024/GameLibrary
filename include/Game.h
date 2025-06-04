@@ -5,7 +5,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Element.h"
-#include "Time.h"
+#include "MyTime.h"
 
 namespace myGE {
 /**
@@ -146,7 +146,7 @@ private:
     /**
      * Time Objekt was für alles zuständig ist, was mit Zeit zu tun hat.
      */
-    Time time;
+    MyTime time;
 
 
 };
