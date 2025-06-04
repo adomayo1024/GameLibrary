@@ -5,8 +5,7 @@
 #include "Time.h"
 
 
-
-Game::Game(int width, int heigth, const std::string& title)  :
+myGE::Game::Game(int width, int heigth, const std::string& title)  :
 window(sf::RenderWindow{sf::VideoMode(width, heigth), title}),
 drawing_manager(DrawingManager{window}),
 update_manager(UpdateManager{}),
@@ -18,66 +17,66 @@ time(Time{0}) {
 
 }
 
-sf::RenderWindow& Game::getWindow()  {
+sf::RenderWindow&myGE::Game::getWindow()  {
     return window;
 }
 
-void Game::endGame() {
+void myGE::Game::endGame() {
     running = false;
     window.close();
 }
 
-bool Game::isRunning() const {
+bool myGE::Game::isRunning() const {
     return running;
 }
 
-bool Game::getLastEvent(sf::Event& event) {
+bool myGE::Game::getLastEvent(sf::Event& event) {
     return window.pollEvent(event);
 }
 
-void Game::draw() {
+void myGE::Game::draw() {
     window.clear();
     drawing_manager.draw();
     window.display();
 }
 
-void Game::update() {
+void myGE::Game::update() {
     update_manager.update();
 }
 
-void Game::handleInput(sf::Event& event) {
+void myGE::Game::handleInput(sf::Event& event) {
     input_manager.manage(event, time.getDeltaTime());
 }
 
-void Game::handleStillPressedKeys() {
+void myGE::Game::handleStillPressedKeys() {
     if (Storage::areAnyKeysPressed()) {
         input_manager.handleStillPressedKeys(time.getDeltaTime());
     }
 }
 
-GameState Game::getCurrentState() const {
+myGE::GameState myGE::Game::getCurrentState() const {
     return currentState;
 }
 
-void Game::save() {
+void myGE::Game::save() {
 
 }
 
-void Game::newFrame() {
+void myGE::Game::newFrame() {
     time.newFrame();
 }
 
 
-void Game::init() {
+void myGE::Game::init() {
     makeGameObject("res/haesslichkeit.png");
     makeGameObject("res/gruen.png");
 }
 
-void Game::makeGameObject(std::string pathName) {
+void myGE::Game::makeGameObject(std::string pathName) {
     std::shared_ptr<Test> test = std::make_shared<Test>(Test{pathName, sf::Event::KeyPressed});
-    std::shared_ptr<Element> prt = test;
-    std::shared_ptr<Drawable> prt_drawable = prt;
-    std::shared_ptr<Updatable> prt_updatable = prt;
+    std::shared_ptr<myGE::Element> prt = test;
+    std::shared_ptr<myGE::Drawable> prt_drawable = prt;
+    std::shared_ptr<myGE::Updatable> prt_updatable = prt;
     gameElements.push_back(prt);
     update_manager.setUpdateObj(prt_updatable);
     drawing_manager.setDrawings(prt_drawable);

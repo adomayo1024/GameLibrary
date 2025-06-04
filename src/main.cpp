@@ -8,11 +8,9 @@ constexpr unsigned int COLS = 10;
 constexpr unsigned int SCREEN_WIDTH = CELL_SIZE * ROWS;
 constexpr unsigned int SCREEN_HEIGHT =  CELL_SIZE * COLS;
 
-
-
 int main() {
 
-    Game game{SCREEN_WIDTH, SCREEN_HEIGHT};
+    myGE::Game game{SCREEN_WIDTH, SCREEN_HEIGHT};
     game.init();
 
     while (game.isRunning()) {

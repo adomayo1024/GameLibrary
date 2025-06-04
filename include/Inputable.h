@@ -2,6 +2,8 @@
 #include "InputManager.h"
 #include "TypBenenungen.h"
 
+namespace myGE {
+
 /**
  * Ein Inputable ist eine abstrakte Klasse, welche Objekte beschreibt, die bestimmte Inputs vom Spieler verarbeiten kann.
  */
@@ -40,3 +42,4 @@ protected:
      */
     float timeLastFrame = 0;
 };
+}

@@ -3,6 +3,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Drawable.h"
 
+namespace myGE {
+
 /**
  * Enum welche die verschiedenen Tiefen repräsentiert, wann etwas gezeichnet werden soll.
  * (Wird wahrscheinlich aber noch ersetzt so dass ich eine undefinierte Anzahl an Layern habe)
@@ -34,14 +36,14 @@ public:
     /**
      * Hier werden Drawable Objekte angemeldet  die auf das Window gemalt werden sollen
      */
-    void setDrawings(std::shared_ptr<Drawable>);
-    std::vector<std::shared_ptr<Drawable>> getDrawings();
+    void setDrawings(std::shared_ptr<myGE::Drawable>);
+    std::vector<std::shared_ptr<myGE::Drawable>> getDrawings();
 private:
     /**
      * Dieser Vector hält alle Drawable Objekte die vom Drawing Manager gemanaged werden.
      * Der Vektor hält diese als shared_pointer um Polymorphism zu bewerkstelligen.
      */
-    std::vector<std::shared_ptr<Drawable>> drawings;
+    std::vector<std::shared_ptr<myGE::Drawable>> drawings;
 
     /**
      * Das Window wo drauf der DrawingManager alles drauf malt
@@ -50,3 +52,4 @@ private:
 
 
 };
+}

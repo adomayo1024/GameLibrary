@@ -7,7 +7,7 @@
 
 Test::Test(const std::string textPath,
            sf::Event::EventType eventType)
-    : Element(textPath), eventType(eventType), velocity(100) {
+    : myGE::Element(textPath), eventType(eventType), velocity(100) {
 }
 
 
@@ -61,31 +61,31 @@ Test::giveEventListner() {
 
 }
 void Test::atInput(const sf::Event& event, float) {
-    if (Inputable::isActive()) {
+    if (myGE::Inputable::isActive()) {
         std::cout << texturePath << std::endl;
     }
 }
 
 void Test::moveRight(const sf::Event& event, float deltaTime) {
-    if (Inputable::isActive()) {
+    if (myGE::Inputable::isActive()) {
         sprite.move(velocity * deltaTime, 0.0);
     }
 }
 
 void Test::moveLeft(const sf::Event& event, float deltaTime) {
-    if (Inputable::isActive()) {
+    if (myGE::Inputable::isActive()) {
         sprite.move(velocity * -1 * deltaTime, 0.0);
     }
 }
 
 void Test::moveUp(const sf::Event& event, float deltaTime) {
-    if (Inputable::isActive()) {
+    if (myGE::Inputable::isActive()) {
         sprite.move(0.0, velocity * -1 * deltaTime);
     }
 }
 
 void Test::moveDown(const sf::Event& event, float deltaTime) {
-    if (Inputable::isActive()) {
+    if (myGE::Inputable::isActive()) {
         sprite.move(0.0, velocity * deltaTime);
     }
 }

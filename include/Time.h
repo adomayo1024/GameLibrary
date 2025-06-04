@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/System/Clock.hpp>
 
+namespace myGE {
+
 class Time {
 public:
     explicit Time(float);
@@ -18,3 +20,4 @@ private:
     float deltaTime;
     float timePass;
 };
+}

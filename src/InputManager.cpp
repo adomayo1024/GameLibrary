@@ -8,14 +8,14 @@
 
 
 
-InputManager::InputManager()
+myGE::InputManager::InputManager()
 : listnerMap(std::map<sf::Event::EventType,
 std::vector<inputHandlerFunktion>>{}),
 keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
     std::vector<inputHandlerFunktion>>>{}){
 }
 
-void InputManager::manage(sf::Event &event, float passTime) {
+void myGE::InputManager::manage(sf::Event &event, float passTime) {
 
     if (listnerMap.contains(event.type)) {
         for (const auto& listner : listnerMap[event.type]) {
@@ -34,7 +34,7 @@ void InputManager::manage(sf::Event &event, float passTime) {
 }
 
 
-void InputManager::handleStillPressedKeys(float passTime) {
+void myGE::InputManager::handleStillPressedKeys(float passTime) {
     for (auto i : Storage::getPressedKeys()) {
         Key key = i.first;
         for (const auto& listner : keyMap[EventType::KeyPressed][key]) {
@@ -47,7 +47,7 @@ void InputManager::handleStillPressedKeys(float passTime) {
 }
 
 
-void InputManager::setListner(std::tuple<
+void myGE::InputManager::setListner(std::tuple<
     EventType,
     Key,
     inputHandlerFunktion> tupel) {
@@ -64,7 +64,7 @@ void InputManager::setListner(std::tuple<
     }
 }
 
-void InputManager::setListners(std::vector<
+void myGE::InputManager::setListners(std::vector<
     std::tuple<
     EventType,
     Key,

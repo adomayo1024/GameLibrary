@@ -3,35 +3,35 @@
 #include <iostream>
 #include <ostream>
 
-Time::Time(float passTime) : wholeTimeClock(sf::Clock{}), deltaTimeClock(sf::Clock{}), timePass(passTime){
+myGE::Time::Time(float passTime) : wholeTimeClock(sf::Clock{}), deltaTimeClock(sf::Clock{}), timePass(passTime){
 }
 
-Time::~Time() {
+myGE::Time::~Time() {
     std::cout << wholeTimeClock.getElapsedTime().asSeconds() << std::endl;
 }
 
-float Time::getDeltaTime() {
+float myGE::Time::getDeltaTime() {
     return deltaTime;
 }
 
-void Time::newFrame() {
+void myGE::Time::newFrame() {
     deltaTime = deltaTimeClock.restart().asSeconds();
     deltaTimeClock.restart();
 }
 
-float Time::getWholeTime() {
+float myGE::Time::getWholeTime() {
     return wholeTimeClock.getElapsedTime().asSeconds() + timePass;
 }
 
-float Time::getWholeTimeThisSession() {
+float myGE::Time::getWholeTimeThisSession() {
     return wholeTimeClock.getElapsedTime().asSeconds();
 }
 
-void Time::setWholeTime(float timePass) {
+void myGE::Time::setWholeTime(float timePass) {
     this->timePass = timePass;
 }
 
 
-void Time::restartDeltaClock() {
+void myGE::Time::restartDeltaClock() {
     deltaTimeClock.restart();
 }

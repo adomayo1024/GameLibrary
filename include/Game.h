@@ -7,6 +7,7 @@
 #include "Element.h"
 #include "Time.h"
 
+namespace myGE {
 /**
  * Enum das die verschieden Spiel-States beschreibt.
  * MENU: Man befindet sich derzeit in einem Menü (Hauptmenü, Pause menü etc:)
@@ -125,7 +126,7 @@ private:
     /**
      * Der DrawingManger, der die Sachen auf das SFML-Window malt.
      */
-    DrawingManager drawing_manager;
+    myGE::DrawingManager drawing_manager;
 
     /**
      * Der UpdateManger, der dafür da ist alle Game objekt zu updaten
@@ -140,7 +141,7 @@ private:
     /**
      * Liste mit allen Game Objekten.
      */
-    std::vector<std::shared_ptr<Element>> gameElements;
+    std::vector<std::shared_ptr<myGE::Element>> gameElements;
 
     /**
      * Time Objekt was für alles zuständig ist, was mit Zeit zu tun hat.
@@ -149,4 +150,4 @@ private:
 
 
 };
-
+}

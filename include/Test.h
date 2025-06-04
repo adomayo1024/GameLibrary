@@ -7,7 +7,7 @@
 #include "Inputable.h"
 
 
-class Test : public Element, public Inputable{
+class Test : public myGE::Element, public myGE::Inputable{
 public:
     explicit Test(std::string, sf::Event::EventType);
     ~Test() override;

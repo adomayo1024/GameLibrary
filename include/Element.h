@@ -6,10 +6,11 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Clock.hpp>
 
+namespace myGE {
 /**
  * Ein Element ist ein element im Spiel welches gemalt und geupdatet werden kann.
  */
-class Element: public Drawable,
+class Element: public myGE::Drawable,
                public Updatable{
 
 public:
@@ -56,5 +57,4 @@ protected:
     sf::Clock deltaClock;
 
 };
-
-
+}

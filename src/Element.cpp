@@ -5,17 +5,17 @@
 #include "Storage.h"
 
 
-Element::Element(std::string textPath) :  sprite(sf::Sprite()),
-texture(Storage::getTexture(textPath)),
-texturePath(textPath),
-deltaClock(sf::Clock{}){
+myGE::Element::Element(std::string textPath) :  sprite(sf::Sprite()),
+                                                texture(Storage::getTexture(textPath)),
+                                                texturePath(textPath),
+                                                deltaClock(sf::Clock{}){
     sprite.setTexture(texture);
 }
 
-sf::Sprite& Element::getSprite(){
+sf::Sprite&myGE::Element::getSprite(){
     return sprite;
 }
 
-sf::Drawable& Element::draw() {
+sf::Drawable&myGE::Element::draw() {
     return sprite;
 }

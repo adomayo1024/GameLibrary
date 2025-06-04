@@ -1,5 +1,7 @@
 #pragma once
 
+namespace myGE {
+
 /**
  * Klasse Updatable ist eine abstrakte Klasse, welche Objekte definiert, die, in der regel, nach jedem Frame
  * geupdated werden sollen
@@ -14,3 +16,4 @@ public:
      */
     virtual void update() = 0;
 };
+}

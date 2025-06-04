@@ -5,7 +5,7 @@
 #include <SFML/Window/Event.hpp>
 #include "TypBenenungen.h"
 
-
+namespace myGE {
 
 class InputManager {
 public:
@@ -28,3 +28,4 @@ private:
     std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
     std::vector<inputHandlerFunktion>>> keyMap;
 };
+}

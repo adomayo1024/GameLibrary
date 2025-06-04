@@ -4,6 +4,8 @@
 #include <vector>
 #include "Updatable.h"
 
+namespace myGE {
+
 class UpdateManager {
 
 public:
@@ -11,8 +13,9 @@ public:
 
     void update();
 
-    void setUpdateObj(std::shared_ptr<Updatable>&);
+    void setUpdateObj(std::shared_ptr<myGE::Updatable>&);
 
 private:
-    std::vector<std::shared_ptr<Updatable>> updatables;
+    std::vector<std::shared_ptr<myGE::Updatable>> updatables;
 };
+}

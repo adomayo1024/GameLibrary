@@ -5,6 +5,8 @@
 
 #include "TypBenenungen.h"
 
+namespace myGE {
+
 /**
  * Speichert alle möglichen Sachen im Spiel, wie schon geladenen Texturen, oder derzeitig gedrückte Keys
  */
@@ -70,3 +72,4 @@ private:
      */
     static std::map<Key, sf::Clock> keyClocks;
 };
+}
