@@ -1,6 +1,11 @@
 #include <gtest/gtest.h>
 
-TEST(sample, addition) {
-    ASSERT_EQ(1, 1);
-}
+#include "InputManager.h"
 
+namespace myGE {
+    TEST(InputManagerTest, Initialize) {
+        InputManager inputManager{};
+        EXPECT_TRUE(inputManager.listnerMap.empty());
+        EXPECT_TRUE(inputManager.keyMap.empty());
+    }
+}

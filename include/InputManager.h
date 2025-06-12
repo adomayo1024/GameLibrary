@@ -51,13 +51,13 @@ public:
 
     /**
      * Die Funktion handeled nochmal seperat alle Key die derzeitig gedrückt werden, und im letzten Frame nich losgelassen wurden sind
-     * @param deltaTime die Zeit die es gebraucht hat den letzten Frame zu berechnen.
+     * @param deltaTime die Zeit, die es gebraucht hat, den letzten Frame zu berechnen.
      */
     void handleStillPressedKeys(float deltaTime);
 
 private:
     /**
-     * Die Map die die Anmeldungen der OBjekt zu den jeweiligen Events speichert
+     * Die map, die die Anmeldungen der Objekte zu den jeweiligen Events speichert
      */
     std::map<sf::Event::EventType,
     std::vector<inputHandlerFunktion>> listnerMap;
@@ -66,5 +66,11 @@ private:
      */
     std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
     std::vector<inputHandlerFunktion>>> keyMap;
+
+    /**
+     * Alle TestKlasse die auf die Member Variblen Zugreifen dürfen
+     */
+    friend class InputManagerTest_Initialize_Test;
+
 };
 }
