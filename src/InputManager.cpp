@@ -15,6 +15,14 @@ keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
     std::vector<inputHandlerFunktion>>>{}){
 }
 
+myGE::InputManager::InputManager(std::vector<
+    std::tuple<
+    EventType,
+    Key,
+    inputHandlerFunktion>>& anmeldungsTupelListe) {
+    setListners(anmeldungsTupelListe);
+}
+
 void myGE::InputManager::manage(sf::Event &event, float passTime) {
 
     if (listnerMap.contains(event.type)) {
