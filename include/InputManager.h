@@ -18,6 +18,16 @@ public:
     explicit InputManager();
 
     /**
+     * Konstruktor der ein InputManager Objekt instanziiert. Und schon Objekte für Inputs anmeldet.
+     * @param anmeldungsTupelListe liste mit den Anmeldungen für bestimmte Inputs
+     */
+    explicit InputManager(std::vector<
+    std::tuple<
+    EventType,
+    Key,
+    inputHandlerFunktion>>& anmeldungsTupelListe);
+
+    /**
      * Gibt das übergebene Event an die Objekt weiter die sich dafür angemeldet haben.
      * @param event das Event was ausgelöst wurden ist und welches behandelt werden soll
      * @param deltaTime die Zeit die für den letzten Frame gebraucht wurde zu berechnen
