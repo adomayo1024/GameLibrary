@@ -37,7 +37,7 @@ public:
     /**
      * Hier melden sich objekt an, für ein bestimmtes Event
      * @param anmeldungsTupel das Tupel beinhaltet den EventType, zu welches es benachrichtige werden will,
-     * wenn es ein Key Event ist gibt Key den Key an, wenn es kein Key Event ist soll das hier None sein,
+     * wenn es ein Key Event ist gibt Key den Key an, wenn es kein Key Event ist soll das hier Unknown sein,
      * inputHandlerFunktion ist die spezifische Funktion des Objekts die aufgerufen werden soll, wenn das Event ausgelöst wurden ist
      */
     void setListner(std::tuple<
@@ -50,7 +50,7 @@ public:
      * @param anmeldungsTupelListe die Liste beinhaltet Tupel, welche spezifiezieren welches Objekt sich
      * sich für welches Event anmelden möchte.
      * Die Tupel beinhalten den EventType, zu welches es benachrichtige werden will,
-     * wenn es ein Key Event ist gibt Key den Key an, wenn es kein Key Event ist soll das hier None sein,
+     * wenn es ein Key Event ist gibt Key den Key an, wenn es kein Key Event ist soll das hier Unknown sein,
      * inputHandlerFunktion ist die spezifische Funktion des Objekts die aufgerufen werden soll, wenn das Event ausgelöst wurden ist
      */
     void setListners(std::vector<
@@ -80,7 +80,8 @@ private:
     /**
      * Alle TestKlasse die auf die Member Variblen Zugreifen dürfen
      */
-    friend class InputManagerTest_Initialize_Test;
+    friend class InputManagerTest_InitializeWithNothing_Test;
+    friend class InputManagerTest_InitializeWithElements_Test;
 
 };
 }

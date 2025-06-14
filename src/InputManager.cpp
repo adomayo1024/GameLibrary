@@ -64,7 +64,7 @@ void myGE::InputManager::setListner(std::tuple<
     sf::Keyboard::Key key = std::get<1>(tupel);
     inputHandlerFunktion function = std::move(std::get<2>(tupel));
 
-    if (std::get<1>(tupel)) {
+    if (std::get<1>(tupel) != Key::Unknown) {
         keyMap[type][key].push_back(function);
     }
     else {
