@@ -62,6 +62,11 @@ public:
      */
     static void removeKey(Key key);
 
+    /**
+     * Entfernt alle Keys die derzeitg als gedrückt gehalten gespeichert sind aus den Storage
+     */
+    static void removeAllKeys();
+
 private:
     /**
      * Die Map die alle derzeitigen Texture speichert
