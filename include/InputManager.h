@@ -28,9 +28,11 @@ public:
     inputHandlerFunktion>>& anmeldungsTupelListe);
 
     /**
-     * Gibt das übergebene Event an die Objekt weiter die sich dafür angemeldet haben.
-     * @param event das Event was ausgelöst wurden ist und welches behandelt werden soll
-     * @param deltaTime die Zeit die für den letzten Frame gebraucht wurde zu berechnen
+     * Gibt das übergebene Event an die Objekte weiter, die sich dafür angemeldet haben.
+     * Wenn es sich um KeyPressed Event handelt, wird der Key nur als gedrückt registriert, aber noch nicht
+     * an die Objekte weiter geleitet.
+     * @param event das Event, was ausgelöst wurde, ist und welches behandelt werden soll
+     * @param deltaTime die Zeit, die für den letzten Frame gebraucht wurde, zu berechnen
      */
     void manage(sf::Event &event, float deltaTime);
 
@@ -60,7 +62,7 @@ public:
     inputHandlerFunktion>>& anmeldungsTupelListe);
 
     /**
-     * Die Funktion handeled nochmal seperat alle Key die derzeitig gedrückt werden, und im letzten Frame nich losgelassen wurden sind
+     * Die Funktion handeled nochmal seperat alle Key die derzeitig gedrückt werden, und im letzten Frame nicht losgelassen wurden sind
      * @param deltaTime die Zeit, die es gebraucht hat, den letzten Frame zu berechnen.
      */
     void handleStillPressedKeys(float deltaTime);

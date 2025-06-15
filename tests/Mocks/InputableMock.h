@@ -5,7 +5,7 @@
 #include <tuple>
 
 
-class InputableMock : public myGE::Inputable {
+class InputableMock : public myGE::Inputable{
     public:
     std::vector<std::tuple<EventType, Key, inputHandlerFunktion>>
     giveEventListner() override;
