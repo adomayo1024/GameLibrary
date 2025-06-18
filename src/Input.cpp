@@ -72,7 +72,7 @@ bool myGE::Input::joystickButtonEventEquals(const myGE::Input& other) {
         result = true;
       }
 
-  return true;
+  return result;
 }
 
 bool myGE::Input::joystickEquals(const myGE::Input& other) {
