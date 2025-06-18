@@ -28,16 +28,18 @@ public:
     inputHandlerFunktion>>& anmeldungsTupelListe);
 
     /**
-     * Gibt das übergebene Event an die Objekt weiter die sich dafür angemeldet haben.
-     * @param event das Event was ausgelöst wurden ist und welches behandelt werden soll
-     * @param deltaTime die Zeit die für den letzten Frame gebraucht wurde zu berechnen
+     * Gibt das übergebene Event an die Objekte weiter, die sich dafür angemeldet haben.
+     * Wenn es sich um KeyPressed Event handelt, wird der Key nur als gedrückt registriert, aber noch nicht
+     * an die Objekte weiter geleitet.
+     * @param event das Event, was ausgelöst wurde, ist und welches behandelt werden soll
+     * @param deltaTime die Zeit, die für den letzten Frame gebraucht wurde, zu berechnen
      */
     void manage(sf::Event &event, float deltaTime);
 
     /**
      * Hier melden sich objekt an, für ein bestimmtes Event
      * @param anmeldungsTupel das Tupel beinhaltet den EventType, zu welches es benachrichtige werden will,
-     * wenn es ein Key Event ist gibt Key den Key an, wenn es kein Key Event ist soll das hier None sein,
+     * wenn es ein Key Event ist gibt Key den Key an, wenn es kein Key Event ist soll das hier Unknown sein,
      * inputHandlerFunktion ist die spezifische Funktion des Objekts die aufgerufen werden soll, wenn das Event ausgelöst wurden ist
      */
     void setListner(std::tuple<
@@ -50,7 +52,7 @@ public:
      * @param anmeldungsTupelListe die Liste beinhaltet Tupel, welche spezifiezieren welches Objekt sich
      * sich für welches Event anmelden möchte.
      * Die Tupel beinhalten den EventType, zu welches es benachrichtige werden will,
-     * wenn es ein Key Event ist gibt Key den Key an, wenn es kein Key Event ist soll das hier None sein,
+     * wenn es ein Key Event ist gibt Key den Key an, wenn es kein Key Event ist soll das hier Unknown sein,
      * inputHandlerFunktion ist die spezifische Funktion des Objekts die aufgerufen werden soll, wenn das Event ausgelöst wurden ist
      */
     void setListners(std::vector<
@@ -60,14 +62,14 @@ public:
     inputHandlerFunktion>>& anmeldungsTupelListe);
 
     /**
-     * Die Funktion handeled nochmal seperat alle Key die derzeitig gedrückt werden, und im letzten Frame nich losgelassen wurden sind
-     * @param deltaTime die Zeit die es gebraucht hat den letzten Frame zu berechnen.
+     * Die Funktion handeled nochmal seperat alle Key die derzeitig gedrückt werden, und im letzten Frame nicht losgelassen wurden sind
+     * @param deltaTime die Zeit, die es gebraucht hat, den letzten Frame zu berechnen.
      */
     void handleStillPressedKeys(float deltaTime);
 
 private:
     /**
-     * Die Map die die Anmeldungen der OBjekt zu den jeweiligen Events speichert
+     * Die map, die die Anmeldungen der Objekte zu den jeweiligen Events speichert
      */
     std::map<sf::Event::EventType,
     std::vector<inputHandlerFunktion>> listnerMap;
@@ -76,5 +78,12 @@ private:
      */
     std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
     std::vector<inputHandlerFunktion>>> keyMap;
+
+    /**
+     * Alle TestKlasse die auf die Member Variblen Zugreifen dürfen
+     */
+    friend class InputManagerTest_InitializeWithNothing_Test;
+    friend class InputManagerTest_InitializeWithElements_Test;
+
 };
 }

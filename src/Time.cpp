@@ -1,4 +1,4 @@
-#include "MYTime.h"
+#include "MyTime.h"
 
 #include <iostream>
 #include <ostream>

@@ -33,5 +33,8 @@ private:
      * Die Liste mit allen Elementen, die geupdatet werden möchten
      */
     std::vector<std::shared_ptr<myGE::Updatable>> updatables;
+
+    friend class UpdateManagerTest_Initialize_Test;
+    friend class UpdateManagerTest_setUpdateObj_Test;
 };
 }

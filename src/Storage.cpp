@@ -21,6 +21,10 @@ void myGE::Storage::removeKey(const Key key) {
     keyClocks.erase(key);
 }
 
+void myGE::Storage::removeAllKeys() {
+    keyClocks.clear();
+}
+
 sf::Clock& myGE::Storage::getClock(const Key key) {
     return keyClocks[key];
 }
