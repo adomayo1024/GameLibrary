@@ -21,7 +21,7 @@ public:
     void moveUp(const sf::Event&, float);
     void moveDown(const sf::Event&, float);
 
-    std::vector<std::tuple<sf::Event::EventType, sf::Keyboard::Key, inputHandlerFunktion>>
+    std::vector<std::tuple<myGE::Input, inputHandlerFunktion>>
     giveEventListner() override;
 private:
     sf::Event::EventType eventType;

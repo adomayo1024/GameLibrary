@@ -9,7 +9,7 @@
 
 
 myGE::InputManager::InputManager()
-: listnerMap(std::map<sf::Event::EventType,
+: listners(std::map<Input,
 std::vector<inputHandlerFunktion>>{}),
 keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
     std::vector<inputHandlerFunktion>>>{}){
@@ -17,27 +17,20 @@ keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
 
 myGE::InputManager::InputManager(std::vector<
     std::tuple<
-    EventType,
-    Key,
-    inputHandlerFunktion>>& anmeldungsTupelListe) {
+    Input,
+    inputHandlerFunktion>>& anmeldungsTupelListe):
+listners(std::map<Input,
+std::vector<inputHandlerFunktion>>{}),
+keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
+    std::vector<inputHandlerFunktion>>>{}){
     setListners(anmeldungsTupelListe);
 }
 
-void myGE::InputManager::manage(sf::Event &event, float passTime) {
-
-    if (listnerMap.contains(event.type)) {
-        for (const auto& listner : listnerMap[event.type]) {
-            listner(event, passTime);
+void myGE::InputManager::manage(Input &input, float deltaTime) {
+    if (listners.contains(input)) {
+        for (const inputHandlerFunktion& listner : listners[input]) {
+            listner(input, deltaTime);
         }
-    }
-    else if (keyMap.contains(event.type)) {
-        Key key = event.key.code;
-        if (!Storage::containsKey(key)) {
-            Storage::addKey(key);
-        }
-    }
-    else if (event.type == sf::Event::KeyReleased) {
-        Storage::removeKey(event.key.code);
     }
 }
 
@@ -56,26 +49,24 @@ void myGE::InputManager::handleStillPressedKeys(float passTime) {
 
 
 void myGE::InputManager::setListner(std::tuple<
-    EventType,
-    Key,
-    inputHandlerFunktion> tupel) {
+    Input,
+    inputHandlerFunktion> listner) {
 
-    sf::Event::EventType type = std::get<0>(tupel);
-    sf::Keyboard::Key key = std::get<1>(tupel);
-    inputHandlerFunktion function = std::move(std::get<2>(tupel));
+    Input &input = std::get<0>(listner);
+    inputHandlerFunktion funktion = std::get<1>(listner);
 
-    if (std::get<1>(tupel) != Key::Unknown) {
-        keyMap[type][key].push_back(function);
+    if (listners.contains(input)) {
+        listners[input].emplace_back(funktion);
     }
     else {
-        listnerMap[type].push_back(function);
+        std::vector liste{funktion};
+        listners[std::get<0>(listner)] = liste;
     }
 }
 
 void myGE::InputManager::setListners(std::vector<
     std::tuple<
-    EventType,
-    Key,
+    Input,
     inputHandlerFunktion>>& listners) {
     for (auto& listner : listners) {
         setListner(listner);

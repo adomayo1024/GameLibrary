@@ -28,7 +28,7 @@ public:
      * Wenn der EventType ein key Event ist, ist das zweite Element der jeweilige Key, wenn es kein Key gibt, ist es Unknown
      * @return Liste mit Tupel der EventType, Key, und Funktion
      */
-    virtual std::vector<std::tuple<EventType, Key, inputHandlerFunktion>>
+    virtual std::vector<std::tuple<Input, inputHandlerFunktion>>
     giveEventListner() = 0;
 protected:
     /**

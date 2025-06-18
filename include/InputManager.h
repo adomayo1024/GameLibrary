@@ -3,6 +3,8 @@
 #include <map>
 #include <vector>
 #include <SFML/Window/Event.hpp>
+
+#include "Input.h"
 #include "TypBenenungen.h"
 
 namespace myGE {
@@ -23,42 +25,35 @@ public:
      */
     explicit InputManager(std::vector<
     std::tuple<
-    EventType,
-    Key,
+    Input,
     inputHandlerFunktion>>& anmeldungsTupelListe);
 
     /**
-     * Gibt das übergebene Event an die Objekte weiter, die sich dafür angemeldet haben.
-     * Wenn es sich um KeyPressed Event handelt, wird der Key nur als gedrückt registriert, aber noch nicht
+     * Gibt den übergebenen Input an die Objekte weiter, die sich dafür angemeldet haben.
+     * Wenn es sich um Pressed Input handelt, wird der Button/Key nur als gedrückt registriert, aber noch nicht
      * an die Objekte weiter geleitet.
-     * @param event das Event, was ausgelöst wurde, ist und welches behandelt werden soll
+     * @param input der Input der vom Window gemeldet wurden ist
      * @param deltaTime die Zeit, die für den letzten Frame gebraucht wurde, zu berechnen
      */
-    void manage(sf::Event &event, float deltaTime);
+    void manage(Input &input, float deltaTime);
 
     /**
-     * Hier melden sich objekt an, für ein bestimmtes Event
-     * @param anmeldungsTupel das Tupel beinhaltet den EventType, zu welches es benachrichtige werden will,
-     * wenn es ein Key Event ist gibt Key den Key an, wenn es kein Key Event ist soll das hier Unknown sein,
-     * inputHandlerFunktion ist die spezifische Funktion des Objekts die aufgerufen werden soll, wenn das Event ausgelöst wurden ist
+     * Hier melden sich Elemente an, für einen bestimmten Input
+     * @param anmeldungsTupel das Tupel beinhaltet einmal den Input sowie die Funktion, die dann aufgerufen werden soll
      */
     void setListner(std::tuple<
-        EventType,
-        Key,
+        Input,
         inputHandlerFunktion> anmeldungsTupel);
 
     /**
-     * Hier melden sich objekt an, für ein bestimmtes Event
-     * @param anmeldungsTupelListe die Liste beinhaltet Tupel, welche spezifiezieren welches Objekt sich
-     * sich für welches Event anmelden möchte.
-     * Die Tupel beinhalten den EventType, zu welches es benachrichtige werden will,
-     * wenn es ein Key Event ist gibt Key den Key an, wenn es kein Key Event ist soll das hier Unknown sein,
-     * inputHandlerFunktion ist die spezifische Funktion des Objekts die aufgerufen werden soll, wenn das Event ausgelöst wurden ist
+     * Hier melden sich Elemente an, für einen bestimmten Input
+     * @param anmeldungsTupelListe die Liste beinhaltet Tupel, welche spezifizieren, welches Element, sich
+     * für welchen Input anmelden möchte.
+     * Die Tupel beinhalten den Input sowie die Funktion, die dann aufgerufen werden soll.
      */
     void setListners(std::vector<
     std::tuple<
-    EventType,
-    Key,
+    Input,
     inputHandlerFunktion>>& anmeldungsTupelListe);
 
     /**
@@ -69,15 +64,15 @@ public:
 
 private:
     /**
-     * Die map, die die Anmeldungen der Objekte zu den jeweiligen Events speichert
-     */
-    std::map<sf::Event::EventType,
-    std::vector<inputHandlerFunktion>> listnerMap;
-    /**
      * Map die extra für alle Key Events die Anmeldungen der Objekt speichert, zusätzlich noch die spezifischen Keys.
      */
     std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
     std::vector<inputHandlerFunktion>>> keyMap;
+
+    /**
+     * Die Map die für jeden Input die Funktionen hält, die die Objekte angemeldet haben, für den jeweiligen Input
+     */
+    std::map<Input, std::vector<inputHandlerFunktion>> listners;
 
     /**
      * Alle TestKlasse die auf die Member Variblen Zugreifen dürfen
