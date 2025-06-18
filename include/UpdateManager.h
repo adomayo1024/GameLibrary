@@ -17,5 +17,8 @@ public:
 
 private:
     std::vector<std::shared_ptr<myGE::Updatable>> updatables;
+
+    friend class UpdateManagerTest_Initialize_Test;
+    friend class UpdateManagerTest_setUpdateObj_Test;
 };
 }

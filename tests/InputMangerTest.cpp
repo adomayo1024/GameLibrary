@@ -8,7 +8,7 @@
 namespace myGE {
 
     class InputManagerTest : public ::testing::Test {
-protected:
+    protected:
     void TearDown() override {
         Storage::removeAllKeys();
     }

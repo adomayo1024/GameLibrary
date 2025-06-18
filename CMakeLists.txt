@@ -28,8 +28,7 @@ file(GLOB_RECURSE SOURCESH CONFIGURE_DEPENDS include/*.h)
 
 # Ausfürbare Datei erstellen
 
-add_executable(${PROJECT_NAME} ${SOURCESSRC} ${SOURCESH}
-        tests/Mocks/InputableMock.cpp)
+add_executable(${PROJECT_NAME} ${SOURCESSRC} ${SOURCESH})
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-window sfml-system)
 target_include_directories(${PROJECT_NAME} PRIVATE SFML_INCLUDE_DIRS include)
 
