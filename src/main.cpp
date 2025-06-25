@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include "../include/Game.h"
-#include "Test.h"
 
 constexpr unsigned int CELL_SIZE = 128;
 constexpr unsigned int ROWS = 10;

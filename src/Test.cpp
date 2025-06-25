@@ -29,13 +29,13 @@ void Test::update() {
     return eventType;
 }
 
-std::vector<std::tuple<sf::Event::EventType, sf::Keyboard::Key, inputHandlerFunktion>>
+std::vector<std::tuple<myGE::Input, inputHandlerFunktion>>
 Test::giveEventListner() {
     std::vector<std::tuple<
-        sf::Event::EventType,
-        sf::Keyboard::Key,
+        myGE::Input,
         inputHandlerFunktion>> liste;
 
+    // TODO änder das mal
     liste.emplace_back(
         sf::Event::EventType::KeyPressed,
         sf::Keyboard::Key::Right,

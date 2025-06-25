@@ -1,7 +1,7 @@
 #pragma once
-#include <DrawingManager.h>
-#include <InputManager.h>
-#include <UpdateManager.h>
+#include "DrawingManager.h"
+#include "InputManager.h"
+#include "UpdateManager.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Element.h"
