@@ -16,19 +16,7 @@ myGE::Input::Input(ParameterInputKonstruktor params) : Event() {
 }
 
 myGE::Input::Input(sf::Event event) : Event() {
-  this->mouseButton = event.mouseButton;
-  this->joystickButton = event.joystickButton;
-  this->joystickConnect = event.joystickConnect;
-  this->joystickMove = event.joystickMove;
-  this->mouseMove = event.mouseMove;
-  this->mouseWheel = event.mouseWheel;
-  this->mouseWheelScroll = event.mouseWheelScroll;
-  this->sensor = event.sensor;
-  this->size = event.size;
-  this->text = event.text;
-  this->touch = event.touch;
-  this->type = event.type;
-  this->key = event.key;
+  copyEvent(event);
 }
 
 bool myGE::Input::operator==(const Input& other) {
@@ -116,6 +104,11 @@ bool myGE::Input::operator<(const Input &other) {
   return result;
 }
 
+myGE::Input & myGE::Input::operator=(const sf::Event event) {
+  copyEvent(event);
+  return *this;
+}
+
 bool myGE::Input::keyEventEquals(const myGE::Input& other) {
 
   bool result = false;
@@ -181,3 +174,20 @@ bool myGE::Input::joystickEquals(const myGE::Input& other) {
 
   return result;
 }
+
+void myGE::Input::copyEvent(const sf::Event &event) {
+  this->mouseButton = event.mouseButton;
+  this->joystickButton = event.joystickButton;
+  this->joystickConnect = event.joystickConnect;
+  this->joystickMove = event.joystickMove;
+  this->mouseMove = event.mouseMove;
+  this->mouseWheel = event.mouseWheel;
+  this->mouseWheelScroll = event.mouseWheelScroll;
+  this->sensor = event.sensor;
+  this->size = event.size;
+  this->text = event.text;
+  this->touch = event.touch;
+  this->type = event.type;
+  this->key = event.key;
+}
+

@@ -18,6 +18,10 @@ namespace myGE {
               unsigned int joyStickButton = -1;
               unsigned int joyStickId = -1;
         };
+
+
+        Input() = default;
+
         /**
          * Konstruktor, um einen Input zu erstellen, und mit eigenen Werten direkt zu versehen.
          * Alle Parameter sind optional, außer der Type des Inputs.
@@ -39,6 +43,8 @@ namespace myGE {
         bool operator==(const Input& other);
 
         bool operator<(const Input& other);
+
+        Input& operator=(const sf::Event event);
 
       private:
         /**
@@ -80,6 +86,9 @@ namespace myGE {
          * @return true, wenn bei den Joysticks bei den beiden Inputs derselbe ist. False wenn nicht.
          */
         bool joystickEquals(const Input& other);
+
+
+        void copyEvent(const sf::Event& event);
     };
 
 }
