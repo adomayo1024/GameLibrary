@@ -35,7 +35,6 @@ Test::giveEventListner() {
         myGE::Input,
         inputHandlerFunktion>> liste;
 
-    // TODO änder das mal
     liste.emplace_back(
         myGE::Input{myGE::Input::ParameterInputKonstruktor{.type=sf::Event::EventType::KeyPressed, .key=sf::Keyboard::Key::Right}},
         [this](const sf::Event& e, float deltaTime) {this->moveRight(e, deltaTime);});
