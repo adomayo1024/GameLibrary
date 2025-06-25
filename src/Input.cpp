@@ -1,26 +1,34 @@
 #include "Input.h"
 
 
-myGE::Input::Input(sf::Event::EventType type,
-  sf::Keyboard::Key key,
-  bool alt,
-  bool shift,
-  bool ctr,
-  bool system,
-  sf::Mouse::Button mouseButton,
-  unsigned int joyStickButton,
-  unsigned int joyStickId) : Event() {
-  this->type = type;
-  this->key.code = key;
-  this->key.alt = alt;
-  this->key.control = ctr;
-  this->key.shift = shift;
-  this->key.system = system;
-  this->mouseButton.button = mouseButton;
-  this->joystickButton.button = joyStickButton;
-  this->joystickButton.joystickId = joyStickId;
-  this->joystickMove.joystickId = joyStickId;
-  this->joystickConnect.joystickId = joyStickId;
+myGE::Input::Input(ParameterInputKonstruktor params) : Event() {
+  this->type = params.type;
+  this->key.code = params.key;
+  this->key.alt = params.alt;
+  this->key.control = params.ctr;
+  this->key.shift = params.shift;
+  this->key.system = params.system;
+  this->mouseButton.button = params.mouseButton;
+  this->joystickButton.button = params.joyStickButton;
+  this->joystickButton.joystickId = params.joyStickId;
+  this->joystickMove.joystickId = params.joyStickId;
+  this->joystickConnect.joystickId = params.joyStickId;
+}
+
+myGE::Input::Input(sf::Event event) : Event() {
+  this->mouseButton = event.mouseButton;
+  this->joystickButton = event.joystickButton;
+  this->joystickConnect = event.joystickConnect;
+  this->joystickMove = event.joystickMove;
+  this->mouseMove = event.mouseMove;
+  this->mouseWheel = event.mouseWheel;
+  this->mouseWheelScroll = event.mouseWheelScroll;
+  this->sensor = event.sensor;
+  this->size = event.size;
+  this->text = event.text;
+  this->touch = event.touch;
+  this->type = event.type;
+  this->key = event.key;
 }
 
 bool myGE::Input::operator==(const Input& other) {

@@ -7,30 +7,30 @@ namespace myGE {
      */
     class Input : public sf::Event {
       public:
-        
+        struct ParameterInputKonstruktor {
+              sf::Event::EventType type;
+              sf::Keyboard::Key key = sf::Keyboard::Key::Unknown;
+              bool alt = false;
+              bool shift = false;
+              bool ctr = false;
+              bool system = false;
+              sf::Mouse::Button mouseButton = sf::Mouse::Button::ButtonCount;
+              unsigned int joyStickButton = -1;
+              unsigned int joyStickId = -1;
+        };
         /**
-         * Konstruktor, um einen Input zu erstellen.
+         * Konstruktor, um einen Input zu erstellen, und mit eigenen Werten direkt zu versehen.
          * Alle Parameter sind optional, außer der Type des Inputs.
-         * @param type
-         * @param key
-         * @param alt
-         * @param shift
-         * @param ctr
-         * @param system
-         * @param mouseButton
-         * @param joyStickButton
-         * @param joyStickId
+         * @param params
          */
-        // TODO ein Struct für parameter übergabe, für besser optionale Parameter
-        Input(sf::Event::EventType type,
-              sf::Keyboard::Key key = sf::Keyboard::Key::Unknown,
-              bool alt = false,
-              bool shift = false,
-              bool ctr = false,
-              bool system = false,
-              sf::Mouse::Button mouseButton = sf::Mouse::Button::ButtonCount,
-              unsigned int joyStickButton = -1,
-              unsigned int joyStickId = -1);
+        explicit Input(ParameterInputKonstruktor params);
+
+        /**
+         * Konstruktor, um einen Input zu erstellen, durch ein SFML event
+         * @param event das SFML event welches der Input darstellen soll.
+         */
+        explicit Input(sf::Event event);
+
         /**
          * Die Equals Methode, ob zwei Inputs gleich sind.
          * Es kommt auf den Typ des Events an, wie die gleichhet überprüft wird.

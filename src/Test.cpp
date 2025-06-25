@@ -37,22 +37,19 @@ Test::giveEventListner() {
 
     // TODO änder das mal
     liste.emplace_back(
-        myGE::Input{sf::Event::EventType::KeyPressed},
+        myGE::Input{myGE::Input::ParameterInputKonstruktor{.type=sf::Event::EventType::KeyPressed, .key=sf::Keyboard::Key::Right}},
         [this](const sf::Event& e, float deltaTime) {this->moveRight(e, deltaTime);});
 
     liste.emplace_back(
-        sf::Event::EventType::KeyPressed,
-        sf::Keyboard::Key::Left,
+    myGE::Input{myGE::Input::ParameterInputKonstruktor{.type=sf::Event::EventType::KeyPressed, .key=sf::Keyboard::Key::Left}},
         [this](const sf::Event& e, float deltaTime) {this->moveLeft(e, deltaTime);});
 
     liste.emplace_back(
-        sf::Event::EventType::KeyPressed,
-        sf::Keyboard::Key::Up,
+    myGE::Input{myGE::Input::ParameterInputKonstruktor{.type=sf::Event::EventType::KeyPressed, .key=sf::Keyboard::Key::Up}},
         [this](const sf::Event& e, float deltaTime) {this->moveUp(e, deltaTime);});
 
     liste.emplace_back(
-        sf::Event::EventType::KeyPressed,
-        sf::Keyboard::Key::Down,
+    myGE::Input{myGE::Input::ParameterInputKonstruktor{.type=sf::Event::EventType::KeyPressed, .key=sf::Keyboard::Key::Down}},
         [this](const sf::Event& e, float deltaTime) {this->moveDown(e, deltaTime);});
 
 
