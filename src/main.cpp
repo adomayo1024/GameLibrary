@@ -13,12 +13,12 @@ int main() {
     game.init();
 
     while (game.isRunning()) {
-        sf::Event event{};
-        while (game.getLastEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+        myGE::Input input;
+        while (game.getLastEvent(input)) {
+            if (input.type == sf::Event::Closed) {
                 game.endGame();
             }
-            game.handleInput(event);
+            game.handleInput(input);
         }
         game.handleStillPressedKeys();
         game.update();

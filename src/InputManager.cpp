@@ -34,7 +34,7 @@ void myGE::InputManager::manage(Input &input, float deltaTime) {
     }
 }
 
-
+// TODO immer noch alt, keine inputs etc.
 void myGE::InputManager::handleStillPressedKeys(float passTime) {
     for (auto i : Storage::getPressedKeys()) {
         Key key = i.first;
