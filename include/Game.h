@@ -55,7 +55,7 @@ public:
      * @param event Referenzparameter, der nach der Methode das Event enthält, wenn eins passiert it.
      * @return true, wenn ein Event passiert ist. False, wenn keins passiert ist.
      */
-    bool getLastEvent(sf::Event& event);
+    bool getLastEvent(Input input);
 
     /**
      * Malt den aktuellen Frame auf das SFML-Window
@@ -73,7 +73,7 @@ public:
      * gedrückten Keys. Die eigentliche bearbeitung folgt in der Methode "handleStillPressedKeys".
      * @param event das Event was gehandelt werden soll
      */
-    void handleInput(sf::Event& event);
+    void handleInput(Input input);
 
     /**
      * Hier werden alle derzeit gedrückten Keys bearbeitet.

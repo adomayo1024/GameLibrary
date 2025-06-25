@@ -30,8 +30,11 @@ bool myGE::Game::isRunning() const {
     return running;
 }
 
-bool myGE::Game::getLastEvent(sf::Event& event) {
-    return window.pollEvent(event);
+bool myGE::Game::getLastEvent(Input input) {
+    sf::Event event;
+    bool newEvent = window.pollEvent(event);
+    input = event;
+    return newEvent;
 }
 
 void myGE::Game::draw() {
@@ -44,8 +47,8 @@ void myGE::Game::update() {
     update_manager.update();
 }
 
-void myGE::Game::handleInput(sf::Event& event) {
-    input_manager.manage(event, time.getDeltaTime());
+void myGE::Game::handleInput(Input input) {
+    input_manager.manage(input, time.getDeltaTime());
 }
 
 void myGE::Game::handleStillPressedKeys() {
@@ -80,6 +83,6 @@ void myGE::Game::makeGameObject(std::string pathName) {
     gameElements.push_back(prt);
     update_manager.setUpdateObj(prt_updatable);
     drawing_manager.setDrawings(prt_drawable);
-    std::vector<std::tuple<EventType,Key,inputHandlerFunktion>> liste = test->giveEventListner();
+    std::vector<std::tuple<Input, inputHandlerFunktion>> liste = test->giveEventListner();
     input_manager.setListners(liste);
 }
