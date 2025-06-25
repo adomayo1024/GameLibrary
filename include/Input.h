@@ -15,6 +15,8 @@ namespace myGE {
          */
         bool operator==(const Input& other);
 
+        bool operator<(const Input& other);
+
       private:
         /**
          * Prüft ob zwei Key Input gleich sind.

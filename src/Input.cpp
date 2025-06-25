@@ -6,38 +6,62 @@ bool myGE::Input::operator==(const Input& other) {
 
       switch(other.type) {
         case sf::Event::KeyPressed:
-          result = keyEventEquals(other);
+          if (type == sf::Event::KeyPressed){
+            result = keyEventEquals(other);
+          }
           break;
         case sf::Event::KeyReleased:
-          result = keyEventEquals(other);
+          if (type == sf::Event::KeyReleased) {
+            result = keyEventEquals(other);
+          }
           break;
         case sf::Event::MouseButtonPressed:
-          result = mouseButtonEventEquals(other);
+          if (type == sf::Event::MouseButtonPressed) {
+            result = mouseButtonEventEquals(other);
+          }
           break;
         case sf::Event::MouseButtonReleased:
+          if (type == sf::Event::MouseButtonReleased) {
           result = mouseButtonEventEquals(other);
+          }
           break;
         case sf::Event::JoystickButtonPressed:
-          result = joystickButtonEventEquals(other);
+          if (type == sf::Event::JoystickButtonPressed) {
+            result = joystickButtonEventEquals(other);
+          }
           break;
         case sf::Event::JoystickButtonReleased:
-          result = joystickButtonEventEquals(other);
+          if (type == sf::Event::JoystickButtonReleased) {
+            result = joystickButtonEventEquals(other);
+          }
           break;
         case sf::Event::JoystickConnected:
-          result = joystickEquals(other);
+          if (type == sf::Event::JoystickConnected) {
+            result = joystickEquals(other);
+          }
           break;
         case sf::Event::JoystickDisconnected:
-          result = joystickEquals(other);
+          if (type == sf::Event::JoystickDisconnected) {
+            result = joystickEquals(other);
+          }
           break;
         case sf::Event::JoystickMoved:
-          result = joystickEquals(other);
+          if (type == sf::Event::JoystickMoved) {
+            result = joystickEquals(other);
+          }
           break;
         default:
-          result = true;
+          if (type == other.type) {
+            result = true;
+          }
           break;
        }
       return result;
   }
+
+bool myGE::Input::operator<(const Input &other) {
+  return true;
+}
 
 bool myGE::Input::keyEventEquals(const myGE::Input& other) {
 
