@@ -37,8 +37,7 @@ Test::giveEventListner() {
 
     // TODO änder das mal
     liste.emplace_back(
-        sf::Event::EventType::KeyPressed,
-        sf::Keyboard::Key::Right,
+        myGE::Input{sf::Event::EventType::KeyPressed},
         [this](const sf::Event& e, float deltaTime) {this->moveRight(e, deltaTime);});
 
     liste.emplace_back(
