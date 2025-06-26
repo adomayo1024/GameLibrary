@@ -19,7 +19,7 @@ myGE::Input::Input(sf::Event event) : Event() {
   copyEvent(event);
 }
 
-bool myGE::Input::operator==(const Input& other) {
+bool myGE::Input::operator==(const Input& other) const {
       bool result = false;
       if (type == other.type) {
 
@@ -59,7 +59,7 @@ bool myGE::Input::operator==(const Input& other) {
       return result;
   }
 
-bool myGE::Input::operator<(const Input &other) {
+bool myGE::Input::operator<(const Input &other) const {
 
   bool result = false;
 
@@ -109,7 +109,7 @@ myGE::Input & myGE::Input::operator=(const sf::Event event) {
   return *this;
 }
 
-bool myGE::Input::keyEventEquals(const myGE::Input& other) {
+bool myGE::Input::keyEventEquals(const myGE::Input& other) const {
 
   bool result = false;
 
@@ -123,7 +123,7 @@ bool myGE::Input::keyEventEquals(const myGE::Input& other) {
   return result;
 }
 
-bool myGE::Input::keyEventSmallerThen(const Input &other) {
+bool myGE::Input::keyEventSmallerThen(const Input &other) const {
   bool result = false;
   if (key.code != other.key.code) {
     result = key.code < other.key.code;
@@ -143,7 +143,7 @@ bool myGE::Input::keyEventSmallerThen(const Input &other) {
   return result;
 }
 
-bool myGE::Input::mouseButtonEventEquals(const myGE::Input& other) {
+bool myGE::Input::mouseButtonEventEquals(const myGE::Input& other) const {
   bool result = false;
 
   if(this->mouseButton.button == other.mouseButton.button) { // es werden die selben Maustasten gedrückt
@@ -153,7 +153,7 @@ bool myGE::Input::mouseButtonEventEquals(const myGE::Input& other) {
   return result;
 }
 
-bool myGE::Input::joystickButtonEventEquals(const myGE::Input& other) {
+bool myGE::Input::joystickButtonEventEquals(const myGE::Input& other) const {
   bool result = false;
 
   if(this->joystickButton.button == other.joystickButton.button && // es wird der selbe Button gedrückt
@@ -165,7 +165,7 @@ bool myGE::Input::joystickButtonEventEquals(const myGE::Input& other) {
   return result;
 }
 
-bool myGE::Input::joystickEquals(const myGE::Input& other) {
+bool myGE::Input::joystickEquals(const myGE::Input& other) const {
   bool result = false;
 
   if(this->joystickConnect.joystickId == other.joystickConnect.joystickId) {
@@ -175,7 +175,7 @@ bool myGE::Input::joystickEquals(const myGE::Input& other) {
   return result;
 }
 
-void myGE::Input::copyEvent(const sf::Event &event) {
+void myGE::Input::copyEvent(const sf::Event &event){
   this->mouseButton = event.mouseButton;
   this->joystickButton = event.joystickButton;
   this->joystickConnect = event.joystickConnect;

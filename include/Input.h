@@ -40,9 +40,9 @@ namespace myGE {
          * Es kommt auf den Typ des Events an, wie die gleichhet überprüft wird.
          *
          */
-        bool operator==(const Input& other);
+        bool operator==(const Input& other) const;
 
-        bool operator<(const Input& other);
+        bool operator<(const Input& other) const;
 
         Input& operator=(const sf::Event event);
 
@@ -54,7 +54,7 @@ namespace myGE {
          * @param other der andere Input
          * @return true, wenn bei Key Inputs gleich sind. false, wenn nicht
          */
-        bool keyEventEquals(const Input& other);
+        bool keyEventEquals(const Input& other) const;
 
         /**
          * Gibt die natürliche Ordnung für zwei KeyEvents wieder.
@@ -62,7 +62,7 @@ namespace myGE {
          * @param other der ander Input
          * @return true, wenn es kleiner als der andere ist. False, wenn sie gleich oder der andere kleiner ist.
          */
-        bool keyEventSmallerThen(const Input& other);
+        bool keyEventSmallerThen(const Input& other) const;
 
         /**
          * Prüft, ob zwei MouseButton Inputs gleich sind.
@@ -70,7 +70,7 @@ namespace myGE {
          * @param other der andere Input
          * @return true, wenn bei Mousebutton Inputs gleich sind. false, wenn nicht
          */
-        bool mouseButtonEventEquals(const Input& other);
+        bool mouseButtonEventEquals(const Input& other) const;
 
         /**
          * Prüft, ob zwei JoystickButton Inputs gleich sind.
@@ -78,14 +78,14 @@ namespace myGE {
          * @param other der andere Input
          * @return true, wenn bei JoystickButton Inputs gleich sind. False, wenn nicht
          */
-        bool joystickButtonEventEquals(const Input& other);
+        bool joystickButtonEventEquals(const Input& other) const;
 
         /**
          * Überprüft, ob zwei Joysticks gleich sind, bei einem Joystick Input.
          * @param other der andere Joystick Input
          * @return true, wenn bei den Joysticks bei den beiden Inputs derselbe ist. False wenn nicht.
          */
-        bool joystickEquals(const Input& other);
+        bool joystickEquals(const Input& other) const;
 
 
         void copyEvent(const sf::Event& event);
