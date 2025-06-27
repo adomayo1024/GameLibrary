@@ -43,7 +43,7 @@ public:
      */
     void setListner(std::tuple<
         Input,
-        inputHandlerFunktion> anmeldungsTupel);
+        inputHandlerFunktion>& anmeldungsTupel);
 
     /**
      * Hier melden sich Elemente an, für einen bestimmten Input
@@ -57,22 +57,22 @@ public:
     inputHandlerFunktion>>& anmeldungsTupelListe);
 
     /**
-     * Die Funktion handeled nochmal seperat alle Key die derzeitig gedrückt werden, und im letzten Frame nicht losgelassen wurden sind
+     * Die Funktion handled nochmal separat alle Inputs, die derzeitig gedrückt werden und im letzten Frame nicht losgelassen wurden sind
      * @param deltaTime die Zeit, die es gebraucht hat, den letzten Frame zu berechnen.
      */
-    void handleStillPressedKeys(float deltaTime);
+    void handleStillPressedInput(float deltaTime);
 
 private:
-    /**
-     * Map die extra für alle Key Events die Anmeldungen der Objekt speichert, zusätzlich noch die spezifischen Keys.
-     */
-    std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
-    std::vector<inputHandlerFunktion>>> keyMap;
 
     /**
      * Die Map die für jeden Input die Funktionen hält, die die Objekte angemeldet haben, für den jeweiligen Input
      */
     std::map<Input, std::vector<inputHandlerFunktion>> listners;
+
+    /**
+     * Die Map, die für jeden PressedInput die Funktion hält, die die Objekte angemeldet haben, für den jeweiligen PressedInput.
+     */
+    std::map<Input, std::vector<inputHandlerFunktion>> pressedListners;
 
     /**
      * Alle TestKlasse die auf die Member Variblen Zugreifen dürfen

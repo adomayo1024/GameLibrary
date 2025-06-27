@@ -3,24 +3,25 @@
 
 namespace myGE {
     /**
-     * Ein Input stellt eine Aktion dar, die vom Fenster registriert wird
+     * Die Klasse Input repräsentiert Eingaben (wie Tasten- und Mausaktionen) und erweitert die Eigenschaften des SFML Events.
      */
     class Input : public sf::Event {
-      public:
+    public:
         struct ParameterInputKonstruktor {
-              sf::Event::EventType type;
-              sf::Keyboard::Key key = sf::Keyboard::Key::Unknown;
-              bool alt = false;
-              bool shift = false;
-              bool ctr = false;
-              bool system = false;
-              sf::Mouse::Button mouseButton = sf::Mouse::Button::ButtonCount;
-              unsigned int joyStickButton = -1;
-              unsigned int joyStickId = -1;
+            sf::Event::EventType type;
+            sf::Keyboard::Key key = sf::Keyboard::Key::Unknown;
+            bool alt = false;
+            bool shift = false;
+            bool ctr = false;
+            bool system = false;
+            sf::Mouse::Button mouseButton = sf::Mouse::Button::ButtonCount;
+            unsigned int joyStickButton = -1;
+            unsigned int joyStickId = -1;
         };
 
 
         Input() = default;
+        ~Input() = default;
 
         /**
          * Konstruktor, um einen Input zu erstellen, und mit eigenen Werten direkt zu versehen.
@@ -36,17 +37,40 @@ namespace myGE {
         explicit Input(sf::Event event);
 
         /**
+         * Kopierkonstruktor
+         * @param input
+         */
+        Input(Input& input);
+
+        /**
          * Die Equals Methode, ob zwei Inputs gleich sind.
          * Es kommt auf den Typ des Events an, wie die gleichhet überprüft wird.
          *
          */
-        bool operator==(const Input& other) const;
+        bool operator==(const Input &other) const;
 
-        bool operator<(const Input& other) const;
+        bool operator<(const Input &other) const;
 
-        Input& operator=(const sf::Event event);
 
-      private:
+        Input &operator=(const sf::Event event);
+
+        /**
+        * Überprüft, ob ein Input ein PressedInput ist.
+        * Ein Input, wo einen Taste oder Button gedrückt wird.
+        * @param input der Input, der überprüft werden soll
+        * @return true, wenn es ein PressedInput ist. False, wenn nicht.
+        */
+        static bool isItPressedInput(const Input &input);
+
+        /**
+         * Überprüft, ob ein Input ein ReleasedInput ist.
+         * Ein Input, wo eine Taste oder Button losgelassen wird.
+         * @param input der Input, der überprüft werden soll
+         * @return true, wenn es ein ReleasedInput ist. False, wenn nicht.
+         */
+        static bool isItReleasedInput(const Input &input);
+
+    private:
         /**
          * Prüft, ob zwei Key Input gleich sind.
          * Sie sind gleich, wenn dieselbe Taste gedrückt wird, und zusätzlich noch alt,ctr,shift,system bei beiden
@@ -54,7 +78,7 @@ namespace myGE {
          * @param other der andere Input
          * @return true, wenn bei Key Inputs gleich sind. false, wenn nicht
          */
-        bool keyEventEquals(const Input& other) const;
+        bool keyEventEquals(const Input &other) const;
 
         /**
          * Gibt die natürliche Ordnung für zwei KeyEvents wieder.
@@ -62,7 +86,7 @@ namespace myGE {
          * @param other der ander Input
          * @return true, wenn es kleiner als der andere ist. False, wenn sie gleich oder der andere kleiner ist.
          */
-        bool keyEventSmallerThen(const Input& other) const;
+        bool keyEventSmallerThen(const Input &other) const;
 
         /**
          * Prüft, ob zwei MouseButton Inputs gleich sind.
@@ -70,7 +94,14 @@ namespace myGE {
          * @param other der andere Input
          * @return true, wenn bei Mousebutton Inputs gleich sind. false, wenn nicht
          */
-        bool mouseButtonEventEquals(const Input& other) const;
+        bool mouseButtonEventEquals(const Input &other) const;
+
+        /**
+         * Gibt die natürliche Ordnung für zwei MouseButtonEvents wieder.
+         * @param other der ander Input
+         * @return true, wenn es kleiner als der andere ist. False, wenn sie gleich oder der andere kleiner ist.
+         */
+        bool mouseButtonEventSmallerThen(const Input &other) const;
 
         /**
          * Prüft, ob zwei JoystickButton Inputs gleich sind.
@@ -78,18 +109,47 @@ namespace myGE {
          * @param other der andere Input
          * @return true, wenn bei JoystickButton Inputs gleich sind. False, wenn nicht
          */
-        bool joystickButtonEventEquals(const Input& other) const;
+        bool joystickButtonEventEquals(const Input &other) const;
 
         /**
-         * Überprüft, ob zwei Joysticks gleich sind, bei einem Joystick Input.
-         * @param other der andere Joystick Input
-         * @return true, wenn bei den Joysticks bei den beiden Inputs derselbe ist. False wenn nicht.
+         * Gibt die natürliche Ordnung für zwei JoystickButtonEvents wieder.
+         * @param other der andere Input
+         * @return true, wenn es kleiner als der andere ist. False, wenn sie gleich oder der andere kleiner ist.
          */
-        bool joystickEquals(const Input& other) const;
+        bool joystickButtonEventSmallerThen(const Input &other) const;
 
+        /**
+         * Überprüft, ob zwei Joysticks gleich sind, bei einem JoystickConnected/Disconnect Input.
+         * @param other der andere Joystick Input
+         * @return true, wenn bei den Joysticks bei den beiden Inputs dasselbe ist. False wenn nicht.
+         */
+        bool joystickConnectedEquals(const Input &other) const;
 
-        void copyEvent(const sf::Event& event);
+        /**
+         * Gibt die natürliche Ordnung für zwei JoystickConnected/Disconnected Inputs wieder.
+         * @param other der andere Input
+         * @return true, wenn es kleiner als der andere ist. False, wenn sie gleich oder der andere kleiner ist.
+         */
+        bool joystickConnectedSmallerThen(const Input &other) const;
+
+        /**
+         * Überprüft, bei einem JoystickMoved Input, ob dieselbe Achse beim selben Joystick geändert wurde.
+         * @param other der andere Joystick Input
+         * @return true, wenn bei beiden Inputs dieselbe Achse vom selben Joystick geändert wurde. False, wenn nicht.
+         */
+        bool joystickMovedEquals(const Input &other) const;
+
+        /**
+         * Gibt die natürliche Ordnung für zwei JoystickMovedEvents wieder.
+         * @param other der andere Input
+         * @return true, wenn es kleiner als der andere ist. False, wenn sie gleich oder der andere kleiner ist.
+         */
+        bool joystickMovedSmallerThen(const Input &other) const;
+
+        /**
+         * Kopiert die Event Information in den Input
+         * @param event
+         */
+        void copyEvent(const sf::Event &event);
     };
-
 }
-

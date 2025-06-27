@@ -1,14 +1,14 @@
 #include "MyTime.h"
 
-#include <iostream>
-#include <ostream>
 
-myGE::MyTime::MyTime(float passTime) : wholeTimeClock(sf::Clock{}), deltaTimeClock(sf::Clock{}), timePass(passTime){
+namespace myGE {
+    sf::Clock MyTime::wholeTimeClock{};
+    sf::Clock MyTime::deltaTimeClock{};
+    float MyTime::deltaTime = 0;
+    float MyTime::timePass = 0;
+
 }
 
-myGE::MyTime::~MyTime() {
-    std::cout << wholeTimeClock.getElapsedTime().asSeconds() << std::endl;
-}
 
 float myGE::MyTime::getDeltaTime() {
     return deltaTime;
@@ -27,8 +27,8 @@ float myGE::MyTime::getWholeTimeThisSession() {
     return wholeTimeClock.getElapsedTime().asSeconds();
 }
 
-void myGE::MyTime::setWholeTime(float timePass) {
-    this->timePass = timePass;
+void myGE::MyTime::setWholeTime(float aTimePass) {
+    timePass = aTimePass;
 }
 
 

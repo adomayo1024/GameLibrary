@@ -1,40 +1,63 @@
 #pragma once
 #include "Input.h"
-#include <SFML/System/Clock.hpp>
 #include <vector>
-#include <map>
 #include <tuple>
+#include <array>
+
+
+static constexpr int amountOnSavedInputs = 1024;
 
 namespace myGE {
-/**
-* Der Input Speichert alle möglichen Sachen über die derzeitigen Inputs.
-* Wie welche Key werden zur Zeit gedrückt, was waren die letzten Inputs.
-*/
-class InputStorage {
-
-public:
-    InputStorage();
-
     /**
-     * Regestriert einkommende Input und speichert diese.
-     * Wenn 1024 Inputs die gespeichert werden erreicht wurden, werden die ersten gelöscht.
-     */
-    static void registerInput(Input& input);
+    * Der Input speichert alle möglichen Sachen über die derzeitigen Inputs.
+    * Wie welche Key werden zur Zeit gedrückt, was waren die letzten Inputs.
+    */
+    class InputStorage {
+    public:
 
-private:
+        /**
+         * Registriert einkommende Inputs und speichert diese.
+         * Wenn 1024 Inputs, die gespeichert werden, erreicht wurden, werden die ersten gelöscht.
+         */
+        static void registerInput(Input &input);
 
-    /**
-       * Regestriert einen HoldInput als das er gedrückt wird, bzw. gehalten wird.
-       */
-    static void registerHoldInput(const Input& input);
+        /**
+         * Gibt eine Liste mit allen derzeitigen PressedInputs.
+         * @return liste aller pressedInputs
+         */
+        static std::vector<Input> getPressedInputs();
 
-    /**
-     * Meldet einen HoldInput ab, er wird nicht mehr gedrückt, bzw. gehlaten.
-     */
-    static void unregestierHoldInput(Input& input);
+        static bool isPressedInputPressed(Input &input);
+
+        static bool areAnyPressedInputPressed();
+
+    private:
+        /**
+           * Registriert einen PressedInput.
+           */
+        static void registerPressedInput(const Input &input);
+
+        /**
+         * Meldet einen PressedInput ab.
+         * Es wurde der zugehörige ReleasedInput erhalten.
+         */
+        static void unregisterPressedInput(const Input &input);
 
 
-  static std::map<Input, sf::Clock> holdInput;
-  static std::tuple<int, Input> lastInputs[1024];
-};
+        /**
+         * Speichert, welche PressedInputs passiert sind, und gerade gedrückt werden.
+         * Mit einer Stopuhr, die misst, wie lange der Input schon gedrückt wird.
+         */
+        static std::vector<Input> pressedInputs;
+
+        /**
+         * Speichert, die letzten @amountOnSavedInputs mit der Zeit, wann sie passiert sind.
+         */
+        static std::array<std::tuple<float, Input>, amountOnSavedInputs> lastInputs;
+
+        /**
+         * Index des letzten passiert Inputs, in@lastInputs.
+         */
+        static int i; // TODO tausch es vielleicht gegen eigen Zyklischer Integer klasse aus
+    };
 }

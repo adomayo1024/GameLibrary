@@ -2,17 +2,12 @@
 #include <tuple>
 #include <utility>
 
-#include "Storage.h"
+#include "InputStorage.h"
 #include "TypBenenungen.h"
-
-
-
 
 myGE::InputManager::InputManager()
 : listners(std::map<Input,
-std::vector<inputHandlerFunktion>>{}),
-keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
-    std::vector<inputHandlerFunktion>>>{}){
+std::vector<inputHandlerFunktion>>{}){
 }
 
 myGE::InputManager::InputManager(std::vector<
@@ -20,9 +15,7 @@ myGE::InputManager::InputManager(std::vector<
     Input,
     inputHandlerFunktion>>& anmeldungsTupelListe):
 listners(std::map<Input,
-std::vector<inputHandlerFunktion>>{}),
-keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
-    std::vector<inputHandlerFunktion>>>{}){
+std::vector<inputHandlerFunktion>>{}){
     setListners(anmeldungsTupelListe);
 }
 
@@ -32,17 +25,17 @@ void myGE::InputManager::manage(Input &input, float deltaTime) {
             listner(input, deltaTime);
         }
     }
+    else if (Input::isItPressedInput(input) ||
+        Input::isItReleasedInput(input)) {
+        InputStorage::registerInput(input);
+    }
+
 }
 
-// TODO immer noch alt, keine inputs etc.
-void myGE::InputManager::handleStillPressedKeys(float passTime) {
-    for (auto i : Storage::getPressedKeys()) {
-        Key key = i.first;
-        for (const auto& listner : keyMap[EventType::KeyPressed][key]) {
-            sf::Event newEvent;
-            newEvent.type = EventType::KeyPressed;
-            newEvent.key.code = key;
-            listner(newEvent, passTime);
+void myGE::InputManager::handleStillPressedInput(float passTime) {
+    for (auto& i : InputStorage::getPressedInputs()) {
+        for (const auto& listner : pressedListners[i]) {
+            listner(i, passTime);
         }
     }
 }
@@ -50,17 +43,28 @@ void myGE::InputManager::handleStillPressedKeys(float passTime) {
 
 void myGE::InputManager::setListner(std::tuple<
     Input,
-    inputHandlerFunktion> listner) {
+    inputHandlerFunktion>& listner) {
 
     Input &input = std::get<0>(listner);
     inputHandlerFunktion funktion = std::get<1>(listner);
 
-    if (listners.contains(input)) {
-        listners[input].emplace_back(funktion);
+    if (Input::isItPressedInput(input)) {
+        if (pressedListners.contains(input)) {
+            pressedListners[input].emplace_back(funktion);
+        }
+        else {
+            std::vector liste{funktion};
+            pressedListners[std::get<0>(listner)] = liste;
+        }
     }
     else {
-        std::vector liste{funktion};
-        listners[std::get<0>(listner)] = liste;
+        if (listners.contains(input)) {
+            listners[input].emplace_back(funktion);
+        }
+        else {
+            std::vector liste{funktion};
+            listners[std::get<0>(listner)] = liste;
+        }
     }
 }
 

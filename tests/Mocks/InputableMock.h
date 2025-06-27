@@ -7,7 +7,7 @@
 
 class InputableMock : public myGE::Inputable{
     public:
-    std::vector<std::tuple<EventType, Key, inputHandlerFunktion>>
+    std::vector<std::tuple<myGE::Input, inputHandlerFunktion>>
     giveEventListner() override;
     MOCK_METHOD(void, mockKey, (const sf::Event& event, float deltaTime));
     MOCK_METHOD(void, mockNotKey, (const sf::Event& event, float deltaTime));

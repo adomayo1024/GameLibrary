@@ -1,21 +1,27 @@
 #include "InputableMock.h"
 
 
-std::vector<std::tuple<EventType, Key, inputHandlerFunktion>>
+std::vector<std::tuple<myGE::Input, inputHandlerFunktion>>
     InputableMock::giveEventListner(){
     std::vector<std::tuple<
-    sf::Event::EventType,
-    sf::Keyboard::Key,
+        myGE::Input,
     inputHandlerFunktion>> liste;
 
-    liste.emplace_back(
-    sf::Event::EventType::KeyPressed,
-    sf::Keyboard::Key::Right,
-    [this](const sf::Event& event, float deltaTime) {this->mockKey(event, deltaTime);});
+
+    myGE::Input input1{myGE::Input::ParameterInputKonstruktor{
+        .type=EventType::KeyPressed,
+        .key=Key::Right}};
 
     liste.emplace_back(
-    sf::Event::EventType::MouseButtonPressed,
-    sf::Keyboard::Key::Unknown,
+    input1,
+    [this](const sf::Event& event, float deltaTime) {this->mockKey(event, deltaTime);});
+
+
+    myGE::Input input2{myGE::Input::ParameterInputKonstruktor{
+        .type=EventType::MouseLeft}};
+
+    liste.emplace_back(
+    input2,
     [this](const sf::Event& event, float deltaTime) {this->mockNotKey(event, deltaTime);});
 
     return liste;

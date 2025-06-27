@@ -1,4 +1,6 @@
 #include "../include/Game.h"
+
+#include "InputStorage.h"
 #include "Storage.h"
 #include "Test.h"
 #include "TypBenenungen.h"
@@ -9,11 +11,10 @@ myGE::Game::Game(int width, int heigth, const std::string& title)  :
 window(sf::RenderWindow{sf::VideoMode(width, heigth), title}),
 drawing_manager(DrawingManager{window}),
 update_manager(UpdateManager{}),
-input_manager(InputManager{}),
-time(MyTime{0}) {
+input_manager(InputManager{}) {
     window.setKeyRepeatEnabled(false);
     window.setFramerateLimit(120);
-    time.setWholeTime(0);   // TODO die Zeit muss aus einer Datei gelesen werden
+    MyTime::setWholeTime(0);   // TODO die Zeit muss aus einer Datei gelesen werden
 
 }
 
@@ -30,7 +31,7 @@ bool myGE::Game::isRunning() const {
     return running;
 }
 
-bool myGE::Game::getLastEvent(Input input) {
+bool myGE::Game::getLastEvent(Input& input) {
     sf::Event event;
     bool newEvent = window.pollEvent(event);
     input = event;
@@ -48,12 +49,12 @@ void myGE::Game::update() {
 }
 
 void myGE::Game::handleInput(Input input) {
-    input_manager.manage(input, time.getDeltaTime());
+    input_manager.manage(input, MyTime::getDeltaTime());
 }
 
 void myGE::Game::handleStillPressedKeys() {
-    if (Storage::areAnyKeysPressed()) {
-        input_manager.handleStillPressedKeys(time.getDeltaTime());
+    if (InputStorage::areAnyPressedInputPressed()) {
+        input_manager.handleStillPressedInput(MyTime::getDeltaTime());
     }
 }
 
@@ -66,7 +67,8 @@ void myGE::Game::save() {
 }
 
 void myGE::Game::newFrame() {
-    time.newFrame();
+    MyTime::newFrame();
+
 }
 
 
@@ -76,7 +78,7 @@ void myGE::Game::init() {
 }
 
 void myGE::Game::makeGameObject(std::string pathName) {
-    std::shared_ptr<Test> test = std::make_shared<Test>(Test{pathName, sf::Event::KeyPressed});
+    std::shared_ptr<Test> test = std::make_shared<Test>(Test{pathName});
     std::shared_ptr<myGE::Element> prt = test;
     std::shared_ptr<myGE::Drawable> prt_drawable = prt;
     std::shared_ptr<myGE::Updatable> prt_updatable = prt;

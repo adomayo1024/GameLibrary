@@ -5,9 +5,8 @@
 
 #include "Storage.h"
 
-Test::Test(const std::string textPath,
-           sf::Event::EventType eventType)
-    : myGE::Element(textPath), eventType(eventType), velocity(100) {
+Test::Test(const std::string textPath)
+    : myGE::Element(textPath), velocity(100) {
 }
 
 
@@ -15,26 +14,17 @@ Test::~Test() {
     std::cout << "Test deleted" << std::endl;
 }
 
-
-void Test::setEventType(sf::Event::EventType newEventType) {
-    eventType = newEventType;
-}
-
-
 void Test::update() {
     //sprite.setPosition(sprite.getPosition().x + 0.1f, sprite.getPosition().y + 0.1f);
 }
 
- sf::Event::EventType Test::getEventType() const {
-    return eventType;
-}
 
 std::vector<std::tuple<myGE::Input, inputHandlerFunktion>>
 Test::giveEventListner() {
     std::vector<std::tuple<
         myGE::Input,
         inputHandlerFunktion>> liste;
-
+//TODO key werden zu unknown
     liste.emplace_back(
         myGE::Input{myGE::Input::ParameterInputKonstruktor{.type=sf::Event::EventType::KeyPressed, .key=sf::Keyboard::Key::Right}},
         [this](const sf::Event& e, float deltaTime) {this->moveRight(e, deltaTime);});

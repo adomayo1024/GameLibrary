@@ -55,7 +55,7 @@ public:
      * @param event Referenzparameter, der nach der Methode das Event enthält, wenn eins passiert it.
      * @return true, wenn ein Event passiert ist. False, wenn keins passiert ist.
      */
-    bool getLastEvent(Input input);
+    bool getLastEvent(Input& input);
 
     /**
      * Malt den aktuellen Frame auf das SFML-Window
@@ -70,7 +70,7 @@ public:
     /**
      * Wenn ein Event passiert ist, wird es hier bearbeitet, durch den Input-Manager.
      * Wenn es aber ein key Event ist, dann wird der Key hier nur als gedrückt registriert, oder entnommen von der
-     * gedrückten Keys. Die eigentliche bearbeitung folgt in der Methode "handleStillPressedKeys".
+     * gedrückten Keys. Die eigentliche bearbeitung folgt in der Methode "handleStillPressedInput".
      * @param event das Event was gehandelt werden soll
      */
     void handleInput(Input input);
@@ -142,11 +142,6 @@ private:
      * Liste mit allen Game Objekten.
      */
     std::vector<std::shared_ptr<myGE::Element>> gameElements;
-
-    /**
-     * Time Objekt was für alles zuständig ist, was mit Zeit zu tun hat.
-     */
-    MyTime time;
 
 
 };

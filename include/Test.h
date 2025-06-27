@@ -9,12 +9,10 @@
 
 class Test : public myGE::Element, public myGE::Inputable{
 public:
-    explicit Test(std::string, sf::Event::EventType);
+    explicit Test(std::string);
     ~Test() override;
-    void setEventType(sf::Event::EventType);
     void setText(std::string);
     void update() override;
-    sf::Event::EventType getEventType() const;
     void atInput(const sf::Event&, float);
     void moveRight(const sf::Event&, float);
     void moveLeft(const sf::Event&, float);
@@ -24,6 +22,5 @@ public:
     std::vector<std::tuple<myGE::Input, inputHandlerFunktion>>
     giveEventListner() override;
 private:
-    sf::Event::EventType eventType;
     float velocity;
 };
