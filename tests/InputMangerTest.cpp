@@ -7,13 +7,12 @@
 #include "Storage.h"
 
 namespace myGE {
-
     class InputManagerTest : public ::testing::Test {
     protected:
-    void TearDown() override {
-        Storage::removeAllKeys();
-    }
-};
+        void TearDown() override {
+            InputStorage::removedAllPressedInputs();
+        }
+    };
 
     /**
      * Testet, das Initialisieren eines Inputmanagers ohne vorherige Anmeldungen.
@@ -28,7 +27,7 @@ namespace myGE {
      */
     TEST_F(InputManagerTest, InitializeWithElements) {
         InputableMock mock{};
-        std::vector<std::tuple<Input, inputHandlerFunktion>> inputHandlers = mock.giveEventListner();
+        std::vector<std::tuple<Input, inputHandlerFunktion> > inputHandlers = mock.giveEventListner();
         InputManager inputManager{inputHandlers};
         EXPECT_FALSE(inputManager.listners.empty());
         EXPECT_EQ(1, inputManager.listners.size());
@@ -42,14 +41,18 @@ namespace myGE {
      */
     TEST_F(InputManagerTest, ManageNonKeyInput) {
         InputableMock mock{};
-        std::vector<std::tuple<Input, inputHandlerFunktion>> inputHandlers = mock.giveEventListner();
+        std::vector<std::tuple<Input, inputHandlerFunktion> > inputHandlers = mock.giveEventListner();
         InputManager inputManager{inputHandlers};
         EXPECT_CALL(mock, mockNotKey(testing::_, testing::_))
-        .Times(1);
-        Input input{myGE::Input::ParameterInputKonstruktor{
-            .type=EventType::MouseLeft}};
+                .Times(1);
+        Input input{
+            myGE::Input::ParameterEventTypeInputKonstruktor{
+                .type = sf::Event::EventType::MouseMoved,
+                .mMEvent = sf::Event::MouseMoveEvent{
+                }
+            }
+        };
         inputManager.manage(input, 12);
-
     }
 
     /**
@@ -58,13 +61,19 @@ namespace myGE {
      */
     TEST_F(InputManagerTest, ManageKeyInput) {
         InputableMock mock{};
-        std::vector<std::tuple<Input, inputHandlerFunktion>> inputHandlers = mock.giveEventListner();
+        std::vector<std::tuple<Input, inputHandlerFunktion> > inputHandlers = mock.giveEventListner();
         InputManager inputManager{inputHandlers};
         EXPECT_CALL(mock, mockKey(testing::_, testing::_))
-        .Times(0);
-        Input input{myGE::Input::ParameterInputKonstruktor{
-            .type=sf::Event::KeyPressed,
-            .key=Key::Right}};
+                .Times(0);
+        Input input{
+            myGE::Input::ParameterEventTypeInputKonstruktor{
+                .type = sf::Event::EventType::KeyPressed,
+                .keyEvent = sf::Event::KeyEvent{
+                    .code = sf::Keyboard::Key::Right,
+                    .scancode = sf::Keyboard::Scan::Right
+                }
+            }
+        };
         inputManager.manage(input, 12);
         EXPECT_TRUE(InputStorage::isPressedInputPressed(input));
     }
@@ -75,14 +84,20 @@ namespace myGE {
      */
     TEST_F(InputManagerTest, handleStillPressedKeys) {
         InputableMock mock{};
-        std::vector<std::tuple<Input, inputHandlerFunktion>> inputHandlers = mock.giveEventListner();
+        std::vector<std::tuple<Input, inputHandlerFunktion> > inputHandlers = mock.giveEventListner();
         InputManager inputManager{inputHandlers};
-        Input input{myGE::Input::ParameterInputKonstruktor{
-            .type=sf::Event::KeyPressed,
-            .key=Key::Right}};
+        Input input{
+            myGE::Input::ParameterEventTypeInputKonstruktor{
+                .type = sf::Event::EventType::KeyPressed,
+                .keyEvent = sf::Event::KeyEvent{
+                    .code = sf::Keyboard::Key::Right,
+                    .scancode = sf::Keyboard::Scan::Right
+                }
+            }
+        };
         inputManager.manage(input, 12);
         EXPECT_CALL(mock, mockKey(testing::_, testing::_))
-        .Times(1);
+                .Times(1);
         inputManager.handleStillPressedInput(12);
         EXPECT_TRUE(InputStorage::isPressedInputPressed(input));
     }
@@ -92,14 +107,18 @@ namespace myGE {
      */
     TEST_F(InputManagerTest, handleStillPressedKeysElementsNotCall) {
         InputableMock mock{};
-        std::vector<std::tuple<Input, inputHandlerFunktion>> inputHandlers = mock.giveEventListner();
+        std::vector<std::tuple<Input, inputHandlerFunktion> > inputHandlers = mock.giveEventListner();
         InputManager inputManager{inputHandlers};
         EXPECT_CALL(mock, mockKey(testing::_, testing::_))
-        .Times(0);
+                .Times(0);
         EXPECT_CALL(mock, mockNotKey(testing::_, testing::_))
-        .Times(0);
-        Input input{myGE::Input::ParameterInputKonstruktor{
-            .type=sf::Event::MouseMoved}};
+                .Times(0);
+        Input input{
+            myGE::Input{
+                myGE::Input::ParameterEventTypeInputKonstruktor{
+                    .type = sf::Event::EventType::MouseLeft}
+            }
+        };
         inputManager.manage(input, 12);
         inputManager.handleStillPressedInput(12);
     }
@@ -109,12 +128,20 @@ namespace myGE {
      */
     TEST_F(InputManagerTest, setListner) {
         InputableMock mock{};
-        std::vector<std::tuple<Input, inputHandlerFunktion>> inputHandlers = mock.giveEventListner();
+        std::vector<std::tuple<Input, inputHandlerFunktion> > inputHandlers = mock.giveEventListner();
         InputManager inputManager{};
         inputManager.setListner(inputHandlers.at(0));
-        Input input{myGE::Input::ParameterInputKonstruktor{.type=sf::Event::KeyPressed, .key=Key::Right}};
+        Input input{
+            myGE::Input::ParameterEventTypeInputKonstruktor{
+                .type = sf::Event::EventType::KeyPressed,
+                .keyEvent = sf::Event::KeyEvent{
+                    .code = sf::Keyboard::Key::Right,
+                    .scancode = sf::Keyboard::Scan::Right
+                }
+            }
+        };
         EXPECT_CALL(mock, mockKey(testing::_, testing::_))
-        .Times(1);
+                .Times(1);
         inputManager.manage(input, 12);
         inputManager.handleStillPressedInput(12);
         EXPECT_TRUE(myGE::InputStorage::isPressedInputPressed(input));
@@ -126,20 +153,26 @@ namespace myGE {
     TEST_F(InputManagerTest, setListnersDiffrentElements) {
         InputableMock mock{};
         InputableMock mock2{};
-        std::vector<std::tuple<Input, inputHandlerFunktion>> inputHandlers = mock.giveEventListner();
-        std::vector<std::tuple<Input, inputHandlerFunktion>> inputHandlers2 = mock2.giveEventListner();
+        std::vector<std::tuple<Input, inputHandlerFunktion> > inputHandlers = mock.giveEventListner();
+        std::vector<std::tuple<Input, inputHandlerFunktion> > inputHandlers2 = mock2.giveEventListner();
         InputManager inputManager{inputHandlers};
         inputManager.setListners(inputHandlers2);
         EXPECT_CALL(mock, mockNotKey(testing::_, testing::_))
-        .Times(1);
+                .Times(1);
         EXPECT_CALL(mock2, mockNotKey(testing::_, testing::_))
-        .Times(1);
+                .Times(1);
         EXPECT_CALL(mock, mockKey(testing::_, testing::_))
-        .Times(0);
+                .Times(0);
         EXPECT_CALL(mock2, mockKey(testing::_, testing::_))
-        .Times(0);
-        Input input{myGE::Input::ParameterInputKonstruktor{
-            .type=sf::Event::MouseLeft}};
+                .Times(0);
+        Input input{
+            myGE::Input{
+                myGE::Input::ParameterEventTypeInputKonstruktor{
+                    .type = sf::Event::EventType::MouseMoved,
+                    .mMEvent=sf::Event::MouseMoveEvent{}
+                }
+            }
+        };
         inputManager.manage(input, 12);
         inputManager.handleStillPressedInput(12);
     }

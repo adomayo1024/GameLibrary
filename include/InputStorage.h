@@ -27,9 +27,23 @@ namespace myGE {
          */
         static std::vector<Input> getPressedInputs();
 
+        /**
+         * Überprüft, ob ein PressedInput gerade gedrückt wird.
+         * @param input der PressedInput, der überprüft werden soll
+         * @return true, falls er gedrückt wird. False, wenn nicht.
+         */
         static bool isPressedInputPressed(Input &input);
 
+        /**
+         * Guckt, ob gerade überhaupt irgendein PressedInput gedrückt wird.
+         * @return true, wenn mindestens ein PressedInput gedrückt wird. False, wenn gar keiner gedrückt wird.
+         */
         static bool areAnyPressedInputPressed();
+
+        /**
+         * Entfernt alle PressedInputs, sodass sie nicht mehr als gedrückt gespeichert werden.
+         */
+        static void removedAllPressedInputs();
 
     private:
         /**

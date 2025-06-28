@@ -7,16 +7,23 @@ namespace myGE {
      */
     class Input : public sf::Event {
     public:
-        struct ParameterInputKonstruktor {
+        /**
+         * Wrapper Struct, um einen spezifischen Input zu konstruieren.
+         */
+        struct ParameterEventTypeInputKonstruktor {
             sf::Event::EventType type;
-            sf::Keyboard::Key key = sf::Keyboard::Key::Unknown;
-            bool alt = false;
-            bool shift = false;
-            bool ctr = false;
-            bool system = false;
-            sf::Mouse::Button mouseButton = sf::Mouse::Button::ButtonCount;
-            unsigned int joyStickButton = -1;
-            unsigned int joyStickId = -1;
+            sf::Event::JoystickButtonEvent jBEvent;
+            sf::Event::JoystickConnectEvent jCEvent;
+            sf::Event::JoystickMoveEvent jMEvent;
+            sf::Event::KeyEvent keyEvent;
+            sf::Event::MouseButtonEvent mBEvent;
+            sf::Event::MouseMoveEvent mMEvent;
+            sf::Event::MouseWheelEvent mWEvent;
+            sf::Event::MouseWheelScrollEvent mWSEvent;
+            sf::Event::SensorEvent sensorEvent;
+            sf::Event::SizeEvent sizeEvent;
+            sf::Event::TextEvent textEvent;
+            sf::Event::TouchEvent touchEvent;
         };
 
 
@@ -28,7 +35,7 @@ namespace myGE {
          * Alle Parameter sind optional, außer der Type des Inputs.
          * @param params
          */
-        explicit Input(ParameterInputKonstruktor params);
+        explicit Input(ParameterEventTypeInputKonstruktor params);
 
         /**
          * Konstruktor, um einen Input zu erstellen, durch ein SFML event
