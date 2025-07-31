@@ -6,64 +6,89 @@
 #include "TypBenenungen.h"
 
 
-myGE::Input::Input(ParameterEventTypeInputKonstruktor params) : Event() {
+myGE::Input::Input(ParameterInputKonstruktor params) : Event() {
+
+    if(params.type == sf::Event::Count) {
+        throw std::runtime_error{"Must define a Type, of the Input"};
+    }
+
     type = params.type;
 
-    if (type == JoystickButtonPressed ||
+    if(type == JoystickButtonPressed ||
         type == JoystickButtonReleased) {
         joystickButton = params.jBEvent;
-    } else if (type == JoystickConnected ||
-               type == JoystickDisconnected) {
+    } else if(type == JoystickConnected ||
+        type == JoystickDisconnected) {
         joystickConnect = params.jCEvent;
-    } else if (type == JoystickMoved) {
+    } else if(type == JoystickMoved) {
         joystickMove = params.jMEvent;
-    } else if (type == KeyPressed ||
-               type == KeyReleased) {
+    } else if(type == KeyPressed ||
+        type == KeyReleased) {
         key = params.keyEvent;
-    } else if (type == MouseButtonPressed ||
-               type == MouseButtonReleased) {
+    } else if(type == MouseButtonPressed ||
+        type == MouseButtonReleased) {
         mouseButton = params.mBEvent;
-    } else if (type == MouseMoved) {
+    } else if(type == MouseMoved) {
         mouseMove = params.mMEvent;
-    } else if (type == MouseWheelScrolled) {
+    } else if(type == MouseWheelScrolled) {
         mouseWheel = params.mWEvent;
-    } else if (type == Resized) {
+    } else if(type == Resized) {
         size = params.sizeEvent;
-    } else if (type == SensorChanged) {
+    } else if(type == SensorChanged) {
         sensor = params.sensorEvent;
-    } else if (type == TextEntered) {
+    } else if(type == TextEntered) {
         text = params.textEvent;
-    } else if (type == TouchBegan ||
-               type == TouchEnded ||
-               type == TouchMoved) {
+    } else if(type == TouchBegan ||
+        type == TouchEnded ||
+        type == TouchMoved) {
         touch = params.touchEvent;
     }
 }
+
 
 myGE::Input::Input(sf::Event event) : Event(event) {
     copyEvent(event);
 }
 
 myGE::Input::Input(Input &input): Event(input) {
-    this->mouseButton = input.mouseButton;
-    this->joystickButton = input.joystickButton;
-    this->joystickConnect = input.joystickConnect;
-    this->joystickMove = input.joystickMove;
-    this->mouseMove = input.mouseMove;
-    this->mouseWheel = input.mouseWheel;
-    this->mouseWheelScroll = input.mouseWheelScroll;
-    this->sensor = input.sensor;
-    this->size = input.size;
-    this->text = input.text;
-    this->touch = input.touch;
+
     this->type = input.type;
-    this->key = input.key;
+
+    if(type == JoystickButtonPressed ||
+        type == JoystickButtonReleased) {
+        joystickButton = input.joystickButton;
+    } else if(type == JoystickConnected ||
+        type == JoystickDisconnected) {
+        joystickConnect = input.joystickConnect;
+    } else if(type == JoystickMoved) {
+        joystickMove = input.joystickMove;
+    } else if(type == KeyPressed ||
+        type == KeyReleased) {
+        key = input.key;
+    } else if(type == MouseButtonPressed ||
+        type == MouseButtonReleased) {
+        mouseButton = input.mouseButton;
+    } else if(type == MouseMoved) {
+        mouseMove = input.mouseMove;
+    } else if(type == MouseWheelScrolled) {
+        mouseWheel = input.mouseWheel;
+    } else if(type == Resized) {
+        size = input.size;
+    } else if(type == SensorChanged) {
+        sensor = input.sensor;
+    } else if(type == TextEntered) {
+        text = input.text;
+    } else if(type == TouchBegan ||
+        type == TouchEnded ||
+        type == TouchMoved) {
+        touch = input.touch;
+    }
 }
 
 bool myGE::Input::operator==(const Input &other) const {
     bool result = false;
-    if (type == other.type) {
-        switch (other.type) {
+    if(type == other.type) {
+        switch(other.type) {
             case sf::Event::EventType::KeyPressed:
                 result = keyEventEquals(other);
                 break;
@@ -102,8 +127,8 @@ bool myGE::Input::operator==(const Input &other) const {
 bool myGE::Input::operator<(const Input &other) const {
     bool result = false;
 
-    if (type == other.type) {
-        switch (other.type) {
+    if(type == other.type) {
+        switch(other.type) {
             case sf::Event::KeyPressed:
                 result = keyEventSmallerThen(other);
                 break;
@@ -132,7 +157,6 @@ bool myGE::Input::operator<(const Input &other) const {
                 result = joystickMovedSmallerThen(other);
                 break;
             default:
-                result = type < other.type;
                 break;
         }
     } else {
@@ -140,6 +164,7 @@ bool myGE::Input::operator<(const Input &other) const {
     }
     return result;
 }
+
 
 myGE::Input &myGE::Input::operator=(const sf::Event event) {
     copyEvent(event);
@@ -149,11 +174,11 @@ myGE::Input &myGE::Input::operator=(const sf::Event event) {
 bool myGE::Input::keyEventEquals(const myGE::Input &other) const {
     bool result = false;
 
-    if (this->key.code == other.key.code &&// es wird dieselbe Taste gedrückt
+    if(this->key.code == other.key.code &&          // es wird dieselbe Taste gedrückt
         this->key.scancode == other.key.scancode && //es wird die dieselbe physische Taste gedrückt
-        this->key.alt == other.key.alt && // es wird bei beiden die alt Taste gedrückt bzw nicht
-        this->key.control == other.key.control && // es wird bei beiden die ctr taste gedrückt bzw nicht
-        this->key.shift == other.key.shift && // es wird bei beiden die shift taste gedrückt bzw nicht
+        this->key.alt == other.key.alt &&           // es wird bei beiden die alt Taste gedrückt bzw nicht
+        this->key.control == other.key.control &&   // es wird bei beiden die ctr taste gedrückt bzw nicht
+        this->key.shift == other.key.shift &&       // es wird bei beiden die shift taste gedrückt bzw nicht
         this->key.system == other.key.system) {
         // es wird bei beiden die system taste gedrückt bzw nicht
         result = true;
@@ -163,15 +188,15 @@ bool myGE::Input::keyEventEquals(const myGE::Input &other) const {
 
 bool myGE::Input::keyEventSmallerThen(const Input &other) const {
     bool result = false;
-    if (key.code != other.key.code) {
+    if(key.code != other.key.code) {
         result = key.code < other.key.code;
-    } else if (key.alt != other.key.alt) {
+    } else if(key.alt != other.key.alt) {
         result = key.alt < other.key.alt;
-    } else if (key.control != other.key.control) {
+    } else if(key.control != other.key.control) {
         result = key.control < other.key.control;
-    } else if (key.shift != other.key.shift) {
+    } else if(key.shift != other.key.shift) {
         result = key.shift < other.key.shift;
-    } else if (key.system != other.key.system) {
+    } else if(key.system != other.key.system) {
         result = key.system < other.key.system;
     }
     return result;
@@ -180,7 +205,7 @@ bool myGE::Input::keyEventSmallerThen(const Input &other) const {
 bool myGE::Input::mouseButtonEventEquals(const myGE::Input &other) const {
     bool result = false;
 
-    if (this->mouseButton.button == other.mouseButton.button) {
+    if(this->mouseButton.button == other.mouseButton.button) {
         // es werden dieselben Maustasten gedrückt
         result = true;
     }
@@ -190,7 +215,7 @@ bool myGE::Input::mouseButtonEventEquals(const myGE::Input &other) const {
 
 bool myGE::Input::mouseButtonEventSmallerThen(const Input &other) const {
     bool result = false;
-    if (mouseButton.button != other.mouseButton.button) {
+    if(mouseButton.button != other.mouseButton.button) {
         result = mouseButton.button < other.mouseButton.button;
     }
     return result;
@@ -199,7 +224,7 @@ bool myGE::Input::mouseButtonEventSmallerThen(const Input &other) const {
 bool myGE::Input::joystickButtonEventEquals(const myGE::Input &other) const {
     bool result = false;
 
-    if (this->joystickButton.button == other.joystickButton.button && // es wird der selbe Button gedrückt
+    if(this->joystickButton.button == other.joystickButton.button && // es wird der selbe Button gedrückt
         this->joystickButton.joystickId == other.joystickButton.joystickId) {
         // der Button wird vom selben Controller gedrückt
 
@@ -212,9 +237,9 @@ bool myGE::Input::joystickButtonEventEquals(const myGE::Input &other) const {
 bool myGE::Input::joystickButtonEventSmallerThen(const Input &other) const {
     bool result = false;
 
-    if (joystickButton.button != other.joystickButton.button) {
+    if(joystickButton.button != other.joystickButton.button) {
         result = joystickButton.button < other.joystickButton.button;
-    } else if (joystickButton.joystickId != other.joystickButton.joystickId) {
+    } else if(joystickButton.joystickId != other.joystickButton.joystickId) {
         result = joystickButton.joystickId < other.joystickButton.joystickId;
     }
 
@@ -224,7 +249,7 @@ bool myGE::Input::joystickButtonEventSmallerThen(const Input &other) const {
 bool myGE::Input::joystickConnectedEquals(const myGE::Input &other) const {
     bool result = false;
 
-    if (this->joystickConnect.joystickId == other.joystickConnect.joystickId) {
+    if(this->joystickConnect.joystickId == other.joystickConnect.joystickId) {
         result = true;
     }
 
@@ -234,7 +259,7 @@ bool myGE::Input::joystickConnectedEquals(const myGE::Input &other) const {
 bool myGE::Input::joystickConnectedSmallerThen(const Input &other) const {
     bool result = false;
 
-    if (joystickConnect.joystickId != other.joystickConnect.joystickId) {
+    if(joystickConnect.joystickId != other.joystickConnect.joystickId) {
         result = joystickConnect.joystickId < other.joystickConnect.joystickId;
     }
 
@@ -244,7 +269,7 @@ bool myGE::Input::joystickConnectedSmallerThen(const Input &other) const {
 bool myGE::Input::joystickMovedEquals(const Input &other) const {
     bool result = false;
 
-    if (this->joystickMove.joystickId == other.joystickMove.joystickId &&
+    if(this->joystickMove.joystickId == other.joystickMove.joystickId &&
         this->joystickMove.axis == other.joystickMove.axis) {
         result = true;
     }
@@ -255,9 +280,9 @@ bool myGE::Input::joystickMovedEquals(const Input &other) const {
 bool myGE::Input::joystickMovedSmallerThen(const Input &other) const {
     bool result = false;
 
-    if (joystickMove.joystickId != other.joystickMove.joystickId) {
+    if(joystickMove.joystickId != other.joystickMove.joystickId) {
         result = joystickMove.joystickId < other.joystickMove.joystickId;
-    } else if (joystickMove.axis != other.joystickMove.axis) {
+    } else if(joystickMove.axis != other.joystickMove.axis) {
         result = joystickMove.axis < other.joystickMove.axis;
     }
 
@@ -282,7 +307,7 @@ void myGE::Input::copyEvent(const sf::Event &event) {
 
 bool myGE::Input::isItPressedInput(const Input &input) {
     bool result = false;
-    if (input.type == sf::Event::EventType::KeyPressed ||
+    if(input.type == sf::Event::EventType::KeyPressed ||
         input.type == sf::Event::EventType::MouseButtonPressed ||
         input.type == sf::Event::EventType::JoystickButtonPressed) {
         result = true;
@@ -292,7 +317,7 @@ bool myGE::Input::isItPressedInput(const Input &input) {
 
 bool myGE::Input::isItReleasedInput(const Input &input) {
     bool result = false;
-    if (input.type == sf::Event::EventType::KeyReleased ||
+    if(input.type == sf::Event::EventType::KeyReleased ||
         input.type == sf::Event::EventType::MouseButtonReleased ||
         input.type == sf::Event::EventType::JoystickButtonReleased) {
         result = true;

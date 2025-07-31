@@ -1,8 +1,8 @@
 # pragma once
 #include <functional>
 #include <SFML/Window/Event.hpp>
-
 #include "Input.h"
+
 
 /**
  * Datei die lange Typen in einfache namen definiert

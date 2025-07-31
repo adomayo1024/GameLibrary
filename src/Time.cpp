@@ -15,7 +15,7 @@ float myGE::MyTime::getDeltaTime() {
 }
 
 void myGE::MyTime::newFrame() {
-    deltaTime = deltaTimeClock.restart().asSeconds();
+    deltaTime = deltaTimeClock.restart().asMilliseconds();
     deltaTimeClock.restart();
 }
 
@@ -24,7 +24,7 @@ float myGE::MyTime::getWholeTime() {
 }
 
 float myGE::MyTime::getWholeTimeThisSession() {
-    return wholeTimeClock.getElapsedTime().asSeconds();
+    return wholeTimeClock.getElapsedTime().asMilliseconds();
 }
 
 void myGE::MyTime::setWholeTime(float aTimePass) {

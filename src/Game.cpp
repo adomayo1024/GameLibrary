@@ -7,18 +7,19 @@
 #include "MyTime.h"
 
 
-myGE::Game::Game(int width, int heigth, const std::string& title)  :
-window(sf::RenderWindow{sf::VideoMode(width, heigth), title}),
-drawing_manager(DrawingManager{window}),
-update_manager(UpdateManager{}),
-input_manager(InputManager{}) {
+myGE::Game::Game(int width, int heigth, const std::string &title) : window(sf::RenderWindow{
+                                                                          sf::VideoMode(width, heigth), title
+                                                                      })
+                                                                , drawing_manager(DrawingManager{window})
+                                                                , update_manager(UpdateManager{})
+                                                                , input_manager(InputManager{}) {
     window.setKeyRepeatEnabled(false);
     window.setFramerateLimit(120);
-    MyTime::setWholeTime(0);   // TODO die Zeit muss aus einer Datei gelesen werden
+    MyTime::setWholeTime(0); // TODO die Zeit muss aus einer Datei gelesen werden
 
 }
 
-sf::RenderWindow&myGE::Game::getWindow()  {
+sf::RenderWindow &myGE::Game::getWindow() {
     return window;
 }
 
@@ -31,10 +32,8 @@ bool myGE::Game::isRunning() const {
     return running;
 }
 
-bool myGE::Game::getLastEvent(Input& input) {
-    sf::Event event;
-    bool newEvent = window.pollEvent(event);
-    input = event;
+bool myGE::Game::getLastEvent(Input &input) {
+    bool newEvent = window.pollEvent(input);
     return newEvent;
 }
 
@@ -53,7 +52,7 @@ void myGE::Game::handleInput(Input input) {
 }
 
 void myGE::Game::handleStillPressedKeys() {
-    if (InputStorage::areAnyPressedInputPressed()) {
+    if(InputStorage::areAnyPressedInputPressed()) {
         input_manager.handleStillPressedInput(MyTime::getDeltaTime());
     }
 }
