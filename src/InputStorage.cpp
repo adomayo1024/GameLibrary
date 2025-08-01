@@ -27,11 +27,11 @@ void myGE::InputStorage::registerInput(Input &input) {
 }
 
 
-std::tuple<float, myGE::Input> &myGE::InputStorage::getLastInput() {
+const std::tuple<float, myGE::Input> &myGE::InputStorage::getLastInput() {
     if(howManyRegisterInputs <= 0) {
         throw std::runtime_error("No Input registered yet");
     }
-    return lastInputs[i];
+    return lastInputs[i - 1];
 }
 
 std::vector<std::tuple<float, myGE::Input>> myGE::InputStorage::getLastNInputs(int n) {

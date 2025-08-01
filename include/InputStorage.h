@@ -23,7 +23,7 @@ namespace myGE {
              */
             static void registerInput(Input &input);
 
-            static std::tuple<float, myGE::Input> &getLastInput();
+            static const std::tuple<float, myGE::Input> &getLastInput();
 
             static std::vector<std::tuple<float, myGE::Input>> getLastNInputs(int n);
 
@@ -84,8 +84,5 @@ namespace myGE {
              * Eine Zählvariable, die angibt, wie viele Inputs insgesamt schon registriert worden sind.
              */
             static int howManyRegisterInputs;
-
-
-            friend class InputStorageTest_initialize_Test;
     };
 }

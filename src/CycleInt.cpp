@@ -6,8 +6,9 @@ myGE::CycleInt::CycleInt(int max) : i(0)
 }
 
 myGE::CycleInt myGE::CycleInt::operator++(int) {
+    CycleInt temp = *this;
     i = (i + 1) % max;
-    return *this;
+    return temp;
 }
 
 myGE::CycleInt myGE::CycleInt::operator--(int) {
