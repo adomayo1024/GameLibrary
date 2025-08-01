@@ -25,7 +25,7 @@ namespace myGE {
 
             static std::tuple<float, myGE::Input> &getLastInput();
 
-            static std::vector<std::tuple<float, myGE::Input>> &getLastNInputs(int n);
+            static std::vector<std::tuple<float, myGE::Input>> getLastNInputs(int n);
 
             /**
              * Gibt eine Liste mit allen derzeitigen PressedInputs.

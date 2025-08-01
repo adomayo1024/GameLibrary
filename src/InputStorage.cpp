@@ -34,7 +34,7 @@ std::tuple<float, myGE::Input> &myGE::InputStorage::getLastInput() {
     return lastInputs[i];
 }
 
-std::vector<std::tuple<float, myGE::Input>> &myGE::InputStorage::getLastNInputs(int n) {
+std::vector<std::tuple<float, myGE::Input>> myGE::InputStorage::getLastNInputs(int n) {
     if(n <= 0) {
         throw std::runtime_error("Asked least for 1 Input");
     }
