@@ -9,7 +9,7 @@
 namespace myGE {
     std::vector<Input> InputStorage::pressedInputs{};
     std::array<std::tuple<float, myGE::Input>, amountOnSavedInputs> InputStorage::lastInputs{};
-    CycleInt InputStorage::i = amountOnSavedInputs;
+    CycleInt InputStorage::i{amountOnSavedInputs};
     int InputStorage::howManyRegisterInputs = 0;
 }
 
