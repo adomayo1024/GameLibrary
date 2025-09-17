@@ -12,7 +12,7 @@ myGE::CycleInt myGE::CycleInt::operator++(int) {
 }
 
 myGE::CycleInt myGE::CycleInt::operator--(int) {
-    i = (i - 1) % max;
+    i = (i == 0) ? max - 1 : i - 1;
     return *this;
 }
 
