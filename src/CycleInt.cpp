@@ -17,7 +17,6 @@ myGE::CycleInt myGE::CycleInt::operator--(int) {
 }
 
 int myGE::CycleInt::operator-(int o) {
-    return (i - o) % max;
     // wenn o > max geht, man eh einmal herum, dann kann man auch einfach nur die nötigen Schritte, die dann noch bleiben, gehen.
     o = o % max;
     // wenn o > i ist, würde es in den negativen Bereich gehen, deshalb zieht man den Wert, der bei i - o herauskommt, vom Max ab.
@@ -38,3 +37,12 @@ myGE::CycleInt::operator int() const {
 bool myGE::CycleInt::operator==(int o) {
     return i == 0;
 }
+
+myGE::CycleInt &myGE::CycleInt::operator=(const int &value) {
+    if(value < max && value >= 0) {
+        i = value;
+    }
+    return *this;
+}
+
+
