@@ -16,17 +16,30 @@ myGE::CycleInt myGE::CycleInt::operator--(int) {
     return *this;
 }
 
+
+// TODO schöner machen nicht mit if abfrage
 int myGE::CycleInt::operator-(int o) {
-    // wenn o > max geht, man eh einmal herum, dann kann man auch einfach nur die nötigen Schritte, die dann noch bleiben, gehen.
-    o = o % max;
-    // wenn o > i ist, würde es in den negativen Bereich gehen, deshalb zieht man den Wert, der bei i - o herauskommt, vom Max ab.
-    int res = (o <= i) ? (i - o) % max : max + (i - o);
+    int res;
+    if(o < 0) {
+        res = *this + (-1 * o);
+    } else {
+        // wenn o > max geht, man eh einmal herum, dann kann man auch einfach nur die nötigen Schritte, die dann noch bleiben, gehen.
+        o = o % max;
+        // wenn o > i ist, würde es in den negativen Bereich gehen, deshalb zieht man den Wert, der bei i - o herauskommt, vom Max ab.
+        res = (o <= i) ? (i - o) % max : max + (i - o);
+    }
     return res;
 }
 
+// TODO schöner machen nicht mit if abfrage
 int myGE::CycleInt::operator+(int o) {
-    o = o % max;
-    int res = (i + o >= max) ? 0 - (max - (i + o)) : i + o;
+    int res;
+    if(o < 0) {
+        res = *this - (-1 * o);
+    } else {
+        o = o % max;
+        res = (i + o >= max) ? 0 - (max - (i + o)) : i + o;
+    }
     return res;
 }
 
@@ -44,5 +57,3 @@ myGE::CycleInt &myGE::CycleInt::operator=(const int &value) {
     }
     return *this;
 }
-
-
