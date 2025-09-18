@@ -35,11 +35,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE SFML_INCLUDE_DIRS include)
 # Libary erstellen
 
 
-add_library(LIBRARY_NAME STATIC ${SOURCESWITHOUTMAIN} ${SOURCESH})
+add_library(${LIBRARY_NAME} STATIC ${SOURCESWITHOUTMAIN} ${SOURCESH})
 
-target_include_directories(LIBRARY_NAME PUBLIC include)
+target_include_directories(${LIBRARY_NAME} PUBLIC include)
 
-target_link_libraries(LIBRARY_NAME PRIVATE sfml-graphics sfml-window sfml-system)
+target_link_libraries(${LIBRARY_NAME} PRIVATE sfml-graphics sfml-window sfml-system)
 
 
 # Tests
@@ -54,9 +54,9 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(Test  ${SOURCESTESTS} ${SOURCETESTSMOCKS})
+add_executable(Test ${SOURCESTESTS} ${SOURCETESTSMOCKS})
 
-target_link_libraries(Test PRIVATE LIBRARY_NAME sfml-graphics sfml-window sfml-system gtest_main gmock)
+target_link_libraries(Test PRIVATE ${LIBRARY_NAME} sfml-graphics sfml-window sfml-system gtest_main gmock)
 target_include_directories(Test PRIVATE SFML_INCLUDE_DIRS include ${TESTS_INCLUDE_DIRS})
 
 
@@ -73,4 +73,4 @@ if (WIN32)
             "${WINDOWS_SFML_DLLS_LOCATION}/sfml-window-d-2.dll"
             "${WINDOWS_SFML_DLLS_LOCATION}/sfml-graphics-d-2.dll"
             $<TARGET_FILE_DIR:${PROJECT_NAME}>)
-endif()
+endif ()
