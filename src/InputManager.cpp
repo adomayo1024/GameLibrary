@@ -2,72 +2,75 @@
 #include <tuple>
 #include <utility>
 
-#include "Storage.h"
+#include "InputStorage.h"
 #include "TypBenenungen.h"
 
-
-
-
 myGE::InputManager::InputManager()
-: listnerMap(std::map<sf::Event::EventType,
-std::vector<inputHandlerFunktion>>{}),
-keyMap(std::map<sf::Event::EventType, std::map<sf::Keyboard::Key,
-    std::vector<inputHandlerFunktion>>>{}){
+: listners(std::map<Input,
+std::vector<inputHandlerFunktion>>{}){
 }
 
-void myGE::InputManager::manage(sf::Event &event, float passTime) {
-
-    if (listnerMap.contains(event.type)) {
-        for (const auto& listner : listnerMap[event.type]) {
-            listner(event, passTime);
-        }
-    }
-    else if (keyMap.contains(event.type)) {
-        Key key = event.key.code;
-        if (!Storage::containsKey(key)) {
-            Storage::addKey(key);
-        }
-    }
-    else if (event.type == sf::Event::KeyReleased) {
-        Storage::removeKey(event.key.code);
-    }
+myGE::InputManager::InputManager(std::vector<
+    std::tuple<
+    Input,
+    inputHandlerFunktion>>& anmeldungsTupelListe):
+listners(std::map<Input,
+std::vector<inputHandlerFunktion>>{}){
+    setListners(anmeldungsTupelListe);
 }
 
+void myGE::InputManager::manage(Input &input, float deltaTime) {
+    if (listners.contains(input)) {
+        for (const inputHandlerFunktion& listner : listners[input]) {
+            listner(input, deltaTime);
+        }
+    }
+    else if (Input::isItPressedInput(input) ||
+        Input::isItReleasedInput(input)) {
+        InputStorage::registerInput(input);
+    }
 
-void myGE::InputManager::handleStillPressedKeys(float passTime) {
-    for (auto i : Storage::getPressedKeys()) {
-        Key key = i.first;
-        for (const auto& listner : keyMap[EventType::KeyPressed][key]) {
-            sf::Event newEvent;
-            newEvent.type = EventType::KeyPressed;
-            newEvent.key.code = key;
-            listner(newEvent, passTime);
+}
+
+void myGE::InputManager::handleStillPressedInput(float passTime) {
+    for (auto& i : InputStorage::getPressedInputs()) {
+        for (const auto& listner : pressedListners[i]) {
+            listner(i, passTime);
         }
     }
 }
 
 
 void myGE::InputManager::setListner(std::tuple<
-    EventType,
-    Key,
-    inputHandlerFunktion> tupel) {
+    Input,
+    inputHandlerFunktion>& listner) {
 
-    sf::Event::EventType type = std::get<0>(tupel);
-    sf::Keyboard::Key key = std::get<1>(tupel);
-    inputHandlerFunktion function = std::move(std::get<2>(tupel));
+    Input &input = std::get<0>(listner);
+    inputHandlerFunktion funktion = std::get<1>(listner);
 
-    if (std::get<1>(tupel)) {
-        keyMap[type][key].push_back(function);
+    if (Input::isItPressedInput(input)) {
+        if (pressedListners.contains(input)) {
+            pressedListners[input].emplace_back(funktion);
+        }
+        else {
+            std::vector liste{funktion};
+            pressedListners[std::get<0>(listner)] = liste;
+        }
     }
     else {
-        listnerMap[type].push_back(function);
+        if (listners.contains(input)) {
+            listners[input].emplace_back(funktion);
+        }
+        else {
+            std::vector liste{funktion};
+            listners[std::get<0>(listner)] = liste;
+        }
     }
 }
 
 void myGE::InputManager::setListners(std::vector<
     std::tuple<
-    EventType,
-    Key,
+    Input,
     inputHandlerFunktion>>& listners) {
     for (auto& listner : listners) {
         setListner(listner);

@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include "../include/Game.h"
-#include "Test.h"
 
 constexpr unsigned int CELL_SIZE = 128;
 constexpr unsigned int ROWS = 10;
@@ -14,12 +13,12 @@ int main() {
     game.init();
 
     while (game.isRunning()) {
-        sf::Event event{};
-        while (game.getLastEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+        myGE::Input input;
+        while (game.getLastEvent(input)) {
+            if (input.type == sf::Event::Closed) {
                 game.endGame();
             }
-            game.handleInput(event);
+            game.handleInput(input);
         }
         game.handleStillPressedKeys();
         game.update();

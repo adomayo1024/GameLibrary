@@ -1,37 +1,37 @@
-#include "../include/Time.h"
+#include "MyTime.h"
 
-#include <iostream>
-#include <ostream>
 
-myGE::Time::Time(float passTime) : wholeTimeClock(sf::Clock{}), deltaTimeClock(sf::Clock{}), timePass(passTime){
+namespace myGE {
+    sf::Clock MyTime::wholeTimeClock{};
+    sf::Clock MyTime::deltaTimeClock{};
+    float MyTime::deltaTime = 0;
+    float MyTime::timePass = 0;
+
 }
 
-myGE::Time::~Time() {
-    std::cout << wholeTimeClock.getElapsedTime().asSeconds() << std::endl;
-}
 
-float myGE::Time::getDeltaTime() {
+float myGE::MyTime::getDeltaTime() {
     return deltaTime;
 }
 
-void myGE::Time::newFrame() {
-    deltaTime = deltaTimeClock.restart().asSeconds();
+void myGE::MyTime::newFrame() {
+    deltaTime = deltaTimeClock.restart().asMilliseconds();
     deltaTimeClock.restart();
 }
 
-float myGE::Time::getWholeTime() {
+float myGE::MyTime::getWholeTime() {
     return wholeTimeClock.getElapsedTime().asSeconds() + timePass;
 }
 
-float myGE::Time::getWholeTimeThisSession() {
-    return wholeTimeClock.getElapsedTime().asSeconds();
+float myGE::MyTime::getWholeTimeThisSession() {
+    return wholeTimeClock.getElapsedTime().asMilliseconds();
 }
 
-void myGE::Time::setWholeTime(float timePass) {
-    this->timePass = timePass;
+void myGE::MyTime::setWholeTime(float aTimePass) {
+    timePass = aTimePass;
 }
 
 
-void myGE::Time::restartDeltaClock() {
+void myGE::MyTime::restartDeltaClock() {
     deltaTimeClock.restart();
 }
