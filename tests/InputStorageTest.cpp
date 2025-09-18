@@ -78,6 +78,9 @@ namespace myGE {
     }
 
 
+    /**
+     * Testet, registerInput mit verschiedenen Inputs hintereinander.
+     */
     TEST_F(InputStorageTest, registerInput_WithVariouseInputs) {
         Input input1{
                     Input::ParameterInputKonstruktor{
@@ -118,6 +121,25 @@ namespace myGE {
         EXPECT_EQ(std::get<1>(inputs[2]), input2);
         EXPECT_EQ(std::get<1>(inputs[1]), input3);
         EXPECT_EQ(std::get<1>(inputs[0]), input4);
+
+    }
+
+    /**
+     * Testet, ob wenn 1024 Inputs registriert wurde beim 1025 der erste Inputs ersetzt wird durch den
+     */
+    TEST_F(InputStorageTest, registerInput_With1025Inputs) {
+        Input input1{Input::ParameterInputKonstruktor{.type = EventType::GainedFocus}};
+        Input input2 = Input{Input::ParameterInputKonstruktor{.type = EventType::Resized}};
+
+        for(int i = 0; i < 1024; i++) {
+            InputStorage::registerInput(input1);
+        }
+
+        InputStorage::registerInput(input2);
+
+        std::vector<registeredInputs> inputs = InputStorage::getLastNInputs(1024);
+        EXPECT_EQ(std::get<1>(inputs[1023]), input1);
+
 
     }
 
