@@ -12,13 +12,13 @@ namespace myGE {
 
             /**
              * Der ++ Operator für ein Cycle Int, wodurch der Wert um 1 erhöht wird und bei max wieder bei 0 beginnt
-             * @return
+             * @return CycleInt mit dem Wert bevor der Inkrementierung
              */
             CycleInt operator++(int);
 
             /**
              * Der -- Operator für ein Cycle Int, wodurch der Wert um 1 verringert wird und nach 0 bei max-1 wieder beginnt
-             * @return
+             * @return CycleInt mit dem Wert bevor der Dekrementierung
              */
             CycleInt operator--(int);
 
