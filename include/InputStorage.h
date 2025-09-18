@@ -4,6 +4,7 @@
 #include <array>
 
 #include "CycleInt.h"
+#include "TypBenenungen.h"
 
 
 static constexpr int amountOnSavedInputs = 1024;
@@ -25,7 +26,7 @@ namespace myGE {
 
             static const std::tuple<float, myGE::Input> &getLastInput();
 
-            static std::vector<std::tuple<float, myGE::Input>> getLastNInputs(int n);
+            static std::vector<registeredInputs> getLastNInputs(int n);
 
             /**
              * Gibt eine Liste mit allen derzeitigen PressedInputs.
@@ -73,7 +74,7 @@ namespace myGE {
             /**
              * Speichert, die letzten @amountOnSavedInputs mit der Zeit, wann sie passiert sind.
              */
-            static std::array<std::tuple<float, Input>, amountOnSavedInputs> lastInputs;
+            static std::array<registeredInputs, amountOnSavedInputs> lastInputs;
 
             /**
              * Index des letzten passiert Inputs, in@lastInputs.

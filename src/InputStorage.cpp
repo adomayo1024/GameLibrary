@@ -15,7 +15,7 @@ namespace myGE {
 
 void myGE::InputStorage::registerInput(Input &input) {
     float time = MyTime::getWholeTimeThisSession();
-    std::tuple<float, myGE::Input> regInput{time, input};
+    registeredInputs regInput{time, input};
     lastInputs[i++] = regInput;
     howManyRegisterInputs++;
 
@@ -44,7 +44,7 @@ std::vector<std::tuple<float, myGE::Input>> myGE::InputStorage::getLastNInputs(i
     if(n > howManyRegisterInputs) {
         throw std::runtime_error("Not so many Inputs registered");
     }
-    std::vector<std::tuple<float, Input>> result{};
+    std::vector<registeredInputs> result{};
 
     for(int j = 1; j <= n; j++) {
         result.emplace_back(std::move(lastInputs[i - j]));
