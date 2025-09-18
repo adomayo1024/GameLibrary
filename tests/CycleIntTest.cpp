@@ -51,6 +51,16 @@ namespace myGE {
     }
 
     /**
+     * Testet, ob der Wert, der vom ++ Operator zurückgeliefert wird, noch nicht der inkrementierende Wert ist,
+     * sondern der vorherige Wert.
+     */
+    TEST_F(CycleIntTest, plusPlusOperatorIncrementAfter) {
+        int temp = test++;
+        EXPECT_EQ(0, temp);
+        EXPECT_EQ(1, test);
+    }
+
+    /**
      * Testet, ob beim Aufruf des ++ Operators, wenn der Wert beim Maximum ist, der Wert auf 0 zurückgeht.
      */
     TEST_F(CycleIntTest, plusPlusOperatorOverflow) {
@@ -90,6 +100,16 @@ namespace myGE {
         test++;
         test--;
         EXPECT_EQ(0, test);
+    }
+
+    /**
+     * Testet, ob der Wert, der vom ++ Operator zurückgeliefert wird, noch nicht der dekrementierende Wert ist,
+     * sondern der vorherige Wert.
+     */
+    TEST_F(CycleIntTest, minusMinusOperatorDecrementAfter) {
+        int temp = test--;
+        EXPECT_EQ(0, temp);
+        EXPECT_EQ(9, test);
     }
 
     /**
